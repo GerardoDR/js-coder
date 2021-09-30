@@ -2,7 +2,9 @@ const por100 = 100
 
 alert ("Regla de tres simple")
 
-let primerValor = prompt("Valor inicial de referencia (100%)")
+console.log ("(Valor proporcional * 100) / Valor de referencia = porcentaje de proporcion")
+
+let primerValor = prompt("Valor de referencia (equivalente al 100%)")
 
 primerValor = Number (primerValor)
 
@@ -12,4 +14,6 @@ segundoValor = Number (segundoValor)
 
 let resultado = (segundoValor * por100) / primerValor;
 
-alert ( resultado + "%");
+alert ("el valor proporcional: '" + segundoValor + "' es el " + resultado + "%" + " del valor inicial: '" + primerValor + "'");
+
+console.log ( "ultimo resultado: " + resultado + "%");
