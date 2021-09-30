@@ -14,6 +14,8 @@ segundoValor = Number (segundoValor)
 
 let resultado = (segundoValor * por100) / primerValor;
 
+resultado = resultado.toFixed(2);
+
 alert ("el valor proporcional: '" + segundoValor + "' es el " + resultado + "%" + " del valor inicial: '" + primerValor + "'");
 
 console.log ( "ultimo resultado: " + resultado + "%");
