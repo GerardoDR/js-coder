@@ -9,7 +9,10 @@
 
 //potencias
 
-const num = parseInt(prompt("Ingresar número:"))
+let num = parseInt(prompt("Ingresar número:"))
+while (!num) {
+    num = parseInt(prompt("No ha ingresado un número. Puede hacerlo a continuación: "))
+}
 
 let res = num
 
@@ -23,8 +26,8 @@ if (potencia === 0){
     console.log (res);
     console.log ('resultado: '+ res*res);
 } else {
-    while (potencia == null) {
-        potencia = parseInt(prompt("Ha ingresado un numero incorrecto, pruebe nuevamente"))
+    while (!potencia) {
+        potencia = parseInt(prompt("No ha ingresado un número. Puede hacerlo a continuación: "))
     }
 
     for (i=2; i<=potencia; i++){
