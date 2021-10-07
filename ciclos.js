@@ -13,16 +13,28 @@ const num = parseInt(prompt("Ingresar número:"))
 
 let res = num
 
-let potencia = parseInt(prompt("Elevado a la potencia (solo mayores a 2): "))
+let potencia = parseInt(prompt("Elevado a la potencia de: "))
 
-while (potencia <= 2 || potencia == null) {
-    potencia = parseInt(prompt("Ha ingresado un numero incorrecto, pruebe nuevamente"))
-}
+if (potencia === 0){
+    console.log ('resultado: 1');
+} else if (potencia === 1){
+    console.log ('resultado: '+res);
+} else if (potencia === 2){
+    console.log (res);
+    console.log ('resultado: '+ res*res);
+} else {
+    while (potencia == null) {
+        potencia = parseInt(prompt("Ha ingresado un numero incorrecto, pruebe nuevamente"))
+    }
 
-for (i=2; i<=potencia; i++){
-    res = res*num
-    console.log(res)
-    if (potencia == i){
-        console.log('resultado: '+res)
+    for (i=2; i<=potencia; i++){
+        res = res*num
+        console.log(res)
+        if (potencia == i){
+            console.log('resultado: '+res)
+        }
     }
 }
+
+
+
