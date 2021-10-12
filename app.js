@@ -15,7 +15,7 @@
 
 let producto
 let precio
-let descuento = 5
+let descuento
 let impuesto = 1.21
 let peso
 let cantidad = 1
@@ -33,17 +33,18 @@ function calculo (precio, descuento, impuesto, cantidad) {
 }
 
 function desc (minimo, maximo, porcentaje, cantidad) {
-
+    let sum = porcentaje
     for (i = minimo; i <= maximo; i++) {
         if (cantidad < minimo) {
             console.log("descuento mayorista no aplicable")
             return 0
         } else if (cantidad == i) {
-            console.log("Descuento calculado: "+porcentaje+"%")
+            console.log("Descuento calculado: "+sum+"%")
             return porcentaje
         } else if (cantidad <= maximo) {
-            porcentaje = porcentaje+5
-            console.log("i toma el valor de: "+i+"\n"+"Se agrega descuento... +1 \n"+"porcentaje toma el valor de: "+porcentaje+"%")
+            sum = sum + porcentaje
+            //agregar variable por afuera, que iguale a porcentaje, tomar ambas dentro de la funcion y modificar una de ellas
+            console.log("i toma el valor de: "+i+"\n"+"Se agrega descuento... +1 \n"+"porcentaje toma el valor de: "+sum+"%")
         } else {
             porcentaje = porcentaje+porcentaje*(maximo-minimo)
             console.log("No se realizan iteraciones, salida automática."+"\n"+"porcentaje toma el valor de: "+porcentaje+"%"+"\n"+"Máximo descuento mayorista aplicado para el producto")
@@ -74,11 +75,12 @@ switch (producto) {
             default:
                 alert("Solo vendemos barras de 15 o 20 kg. Por favor recargue la pagina e ingrese valor correcto")
             }
-        precio = 10000
         //cantidad para descuento mayorista
         mayorista = 3
         //limite de descuento
         limDesc = 6
+        //descuento por unidad adicional por encima de cantidad mayorista
+        descuento = 4
         //funcion descuento
         descuento = desc(mayorista,limDesc,descuento,cantidad)
         //funcion calculo de precio final
@@ -99,6 +101,7 @@ switch (producto) {
             }
         mayorista = 5
         limDesc = 8
+        descuento = 5
         descuento = desc(mayorista,limDesc,descuento,cantidad)
         let precioDisco = calculo(precio, descuento, impuesto, cantidad)
         alert("$"+precioDisco)
@@ -120,6 +123,7 @@ switch (producto) {
             }
         mayorista = 3
         limDesc = 6
+        descuento = 4
         descuento = desc(mayorista,limDesc,descuento,cantidad)
         let precioMancu = calculo(precio, descuento, impuesto, cantidad)
         alert("$"+precioMancu)
@@ -128,6 +132,7 @@ switch (producto) {
         precio = 1500
         mayorista = 5
         limDesc = 9
+        descuento = 3
         descuento = desc(mayorista,limDesc,descuento,cantidad)
         let precioColcho = calculo(precio, descuento, impuesto, cantidad)
         alert("$"+precioColcho)
