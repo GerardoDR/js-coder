@@ -15,7 +15,7 @@
 
 let producto
 let precio
-let descuento
+let descuento = 5
 let impuesto = 1.21
 let peso
 let cantidad = 1
@@ -42,8 +42,8 @@ function desc (minimo, maximo, porcentaje, cantidad) {
             console.log("Descuento calculado: "+porcentaje+"%")
             return porcentaje
         } else if (cantidad <= maximo) {
-            porcentaje = porcentaje + 5
-            console.log("i toma el valor de: "+i+"\n"+"porcentaje toma el valor de: "+porcentaje+"%"+"\n"+"Se agrega descuento... +1")
+            porcentaje = porcentaje+5
+            console.log("i toma el valor de: "+i+"\n"+"Se agrega descuento... +1 \n"+"porcentaje toma el valor de: "+porcentaje+"%")
         } else {
             porcentaje = porcentaje+porcentaje*(maximo-minimo)
             console.log("No se realizan iteraciones, salida automática."+"\n"+"porcentaje toma el valor de: "+porcentaje+"%"+"\n"+"Máximo descuento mayorista aplicado para el producto")
@@ -75,8 +75,6 @@ switch (producto) {
                 alert("Solo vendemos barras de 15 o 20 kg. Por favor recargue la pagina e ingrese valor correcto")
             }
         precio = 10000
-        //descuento que se adiciona por unidad a partir de numero de unidades mayorista y hasta cantidad limite de descuento
-        descuento = 4
         //cantidad para descuento mayorista
         mayorista = 3
         //limite de descuento
@@ -99,7 +97,6 @@ switch (producto) {
             default:
                 alert("Solo vendemos discos de 5 o 10 kg. Por favor recargue la pagina e ingrese valor correcto")
             }
-        descuento = 5
         mayorista = 5
         limDesc = 8
         descuento = desc(mayorista,limDesc,descuento,cantidad)
@@ -121,7 +118,6 @@ switch (producto) {
             default:
                 alert("Solo vendemos mancuernas de 5, 7 o 10 kg. Por favor recargue la pagina e ingrese valor correcto")
             }
-        descuento = 5
         mayorista = 3
         limDesc = 6
         descuento = desc(mayorista,limDesc,descuento,cantidad)
@@ -130,7 +126,6 @@ switch (producto) {
         break
     case "colchoneta":
         precio = 1500
-        descuento = 3
         mayorista = 5
         limDesc = 9
         descuento = desc(mayorista,limDesc,descuento,cantidad)
