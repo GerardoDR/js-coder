@@ -28,8 +28,8 @@ function calculo (precio, descuento, impuesto, cantidad) {
     total = total*impuesto
     console.log ("precio unitario con descuento e impuesto = $"+total)
     total = total*cantidad
-    console.log ("precio final= $"+total+" ==> "+cantidad+" unidad/es.")
-    return total
+    console.log ("precio final= $"+total.toFixed(3)+" ==> "+cantidad+" unidad/es.")
+    return total.toFixed(3)
 }
 
 function desc (minimo, maximo, porcentaje, cantidad) {
