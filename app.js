@@ -39,11 +39,11 @@ function desc (minimo, maximo, porcentaje, cantidad) {
             console.log("descuento mayorista no aplicable")
             return 0
         } else if (cantidad == i) {
-            console.log("i toma el valor de: "+i+"\n"+"porcentaje toma el valor de: "+porcentaje+"%"+"\n"+"Descuento calculado.")
+            console.log("Descuento calculado: "+porcentaje+"%")
             return porcentaje
         } else if (cantidad <= maximo) {
             porcentaje = porcentaje + 5
-            console.log("i toma el valor de: "+i+"\n"+"porcentaje toma el valor de: "+porcentaje+"%"+"\n"+"Se aplica descuento +1...")
+            console.log("i toma el valor de: "+i+"\n"+"porcentaje toma el valor de: "+porcentaje+"%"+"\n"+"Se agrega descuento... +1")
         } else {
             porcentaje = porcentaje+porcentaje*(maximo-minimo)
             console.log("No se realizan iteraciones, salida automática."+"\n"+"porcentaje toma el valor de: "+porcentaje+"%"+"\n"+"Máximo descuento mayorista aplicado para el producto")
@@ -59,8 +59,21 @@ console.log("producto elegido: "+producto)
 
 cantidad = parseInt(prompt("¿Cuantas unidades?"))
 
+console.log("unidades: "+cantidad)
+
 switch (producto) {
     case "barra":
+        peso = parseInt(prompt("De cuantos kg ¿15 o 20?"))
+        switch (peso) {
+            case 15:
+                precio = 10000
+                break
+            case 20:
+                precio = 14000
+                break
+            default:
+                alert("Solo vendemos barras de 15 o 20 kg. Por favor recargue la pagina e ingrese valor correcto")
+            }
         precio = 10000
         //descuento que se adiciona por unidad a partir de numero de unidades mayorista y hasta cantidad limite de descuento
         descuento = 4
@@ -94,7 +107,20 @@ switch (producto) {
         alert("$"+precioDisco)
         break
     case "mancuerna":
-        precio = 2000
+        peso = parseInt(prompt("De cuantos kg ¿5, 7 o 10?"))
+        switch (peso) {
+            case 5:
+                precio = 1700
+                break
+            case 7:
+                precio = 2200
+                break
+            case 10:
+                precio = 2500
+                break
+            default:
+                alert("Solo vendemos mancuernas de 5, 7 o 10 kg. Por favor recargue la pagina e ingrese valor correcto")
+            }
         descuento = 5
         mayorista = 3
         limDesc = 6
