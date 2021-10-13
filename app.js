@@ -25,6 +25,7 @@ let peso
 let cantidad = 1
 let mayorista
 let limDesc
+const descMax = (min, max, percent) => percent+percent*(max-min)
 
 function calculo (precio, descuento, impuesto, cantidad) {
     let total = precio-(precio*(descuento/100))
@@ -48,9 +49,9 @@ function desc (minimo, maximo, porcentaje, cantidad) {
         } else if (cantidad <= maximo) {
             sum = sum + porcentaje
             //agregar variable por afuera, que iguale a porcentaje, tomar ambas dentro de la funcion y modificar una de ellas
-            console.log("i toma el valor de: "+i+"\n"+"Se agrega descuento... +1 \n"+"porcentaje toma el valor de: "+sum+"%")
+            console.log("i toma el valor de: "+i+"\n"+"Se agrega descuento... +"+ porcentaje + "%\n porcentaje toma el valor de: "+sum+"%")
         } else {
-            porcentaje = porcentaje+porcentaje*(maximo-minimo)
+            porcentaje = descMax (minimo,maximo,porcentaje)
             console.log("No se realizan iteraciones, salida automática."+"\n"+"porcentaje toma el valor de: "+porcentaje+"%"+"\n"+"Máximo descuento mayorista aplicado para el producto")
             return porcentaje;
         }
