@@ -26,10 +26,13 @@ let cantidad = 1
 let mayorista
 let limDesc
 
+//funcion que se introduce en desc()
 const descMax = (min, max, percent) => percent+percent*(max-min)
 
+//funcion que se introduce en calculo()
 const tot = (precio,descuento) => (precio-(precio*(descuento/100)))
 
+//devuelve precio final
 function calculo (precio, descuento, impuesto, cantidad) {
     let total = tot(precio,descuento)
     console.log ("precio unitario bruto con descuento = $"+total)
@@ -39,6 +42,11 @@ function calculo (precio, descuento, impuesto, cantidad) {
     console.log ("precio final= $"+total.toFixed(3)+" ==> "+cantidad+" unidad/es.")
     return total.toFixed(3)
 }
+
+/* Devuelve el descuento de acuerdo a: 1.la cantidad de productos;
+2.el umbral a partir del que empieza a hacerse el descuento;
+3.el descuento fijado por unidad que supera ese umbral; y
+4.el limite de unidades que suman descuento para cada producto */
 
 function desc (minimo, maximo, porcentaje, cantidad) {
     let sum = porcentaje
