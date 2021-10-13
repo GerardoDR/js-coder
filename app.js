@@ -25,10 +25,13 @@ let peso
 let cantidad = 1
 let mayorista
 let limDesc
+
 const descMax = (min, max, percent) => percent+percent*(max-min)
 
+const tot = (precio,descuento) => (precio-(precio*(descuento/100)))
+
 function calculo (precio, descuento, impuesto, cantidad) {
-    let total = precio-(precio*(descuento/100))
+    let total = tot(precio,descuento)
     console.log ("precio unitario bruto con descuento = $"+total)
     total = total*impuesto
     console.log ("precio unitario con descuento e impuesto = $"+total)
