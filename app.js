@@ -1,22 +1,3 @@
-// Desafío clase 4
-// >> Consigna: Con los conocimientos vistos hasta el momento, empezarás a armar la estructura inicial de tu proyecto integrador. A partir de los ejemplos mostrados la primera clase, deberás:
-// Pensar el alcance de tu proyecto: ¿usarás un cotizador de seguros? ¿un simulador de créditos? ¿un simulador personalizado?
-// Armar la estructura HTML del proyecto.
-// Incorporar al menos un prompt para pedir un dato y luego mostrarlo mediante alert realizando alguna operación.
-// Utilizar funciones para realizar esas operaciones.
-// >>Aspectos a incluir en el entregable:
-// Archivo HTML y Archivo JS, referenciado en el HTML por etiqueta <script src="js/miarchivo.js"></script>, que incluya la definición de un algoritmo en JavaScript que emplee funciones para resolver el procesamiento principal del simulador
-// ----------------------------------------------
-// Desafío adicional
-// >> Consigna: codifica al menos tres funciones cuyas instrucciones permitan resolver un problema particular, segmentado en tareas. La información a procesar debe ser ingresada por el usuario, y el resultado del procesamiento visualizado en una salida.
-// >>Aspectos a incluir en el entregable:
-// Archivo HTML y archivo JavaScript referenciados, que incluyan la definición y llamada de al menos tres funciones.
-// >>Ejemplos:
-// Ejemplo de procesamiento: cálculo de IVA 
-// 1) Ingresar precio de costo - 2) Sumar IVA - 3) Mostrar precio calculado.
-// Ejemplo de procesamiento: determinar si un número es múltiplo 
-// 1) Ingresar números a verificar - 2) ¿Es múltiplo? - 3) Mostrar resultado.
-
 let producto
 let precio
 let descuento
@@ -43,7 +24,8 @@ function calculo (precio, descuento, impuesto, cantidad) {
     return total.toFixed(3)
 }
 
-/* Devuelve el descuento de acuerdo a: 1.la cantidad de productos;
+/* Devuelve el descuento de acuerdo a:
+1.la cantidad de productos;
 2.el umbral a partir del que empieza a hacerse el descuento;
 3.el descuento fijado por unidad que supera ese umbral; y
 4.el limite de unidades que suman descuento para cada producto */
@@ -67,6 +49,24 @@ function desc (minimo, maximo, porcentaje, cantidad) {
             return porcentaje;
         }
     }
+
+}
+
+class Producto {
+
+    constructor(nombre,marca,peso,stock){
+        this.nombre = nombre
+        this.marca = marca
+        this.peso = peso
+        this.stock = stock
+    }
+
+    restarStock(cantDemandada){
+        if(this.stock >= cantDemandada){
+            this.stock = this.stock-cantDemandada
+        } else { alert("stock insuficiente")}
+    }
+
 
 }
 
