@@ -20,8 +20,8 @@ function calculo (precio, descuento, impuesto, cantidad) {
     total = total*impuesto
     console.log ("precio unitario con descuento e impuesto = $"+total)
     total = total*cantidad
-    console.log ("precio final= $"+total.toFixed(3)+" ==> "+cantidad+" unidad/es.")
-    return total.toFixed(3)
+    console.log ("precio final= $"+total.toFixed(2)+" ==> "+cantidad+" unidad/es.")
+    return total
 }
 
 /* Devuelve el descuento de acuerdo a:
@@ -46,29 +46,59 @@ function desc (minimo, maximo, porcentaje, cantidad) {
         } else {
             porcentaje = descMax (minimo,maximo,porcentaje)
             console.log("No se realizan iteraciones, salida automática."+"\n"+"porcentaje toma el valor de: "+porcentaje+"%"+"\n"+"Máximo descuento mayorista aplicado para el producto")
-            return porcentaje;
+            return porcentaje
         }
     }
 
 }
 
+//CLASS Y CREACIÓN DE OBJETOS
 class Producto {
 
-    constructor(nombre,marca,peso,stock){
+    constructor(id,nombre,precio,marca,material,stock){
+        this.id = id
         this.nombre = nombre
+        this.precio = precio
         this.marca = marca
-        this.peso = peso
+        this.material = material
         this.stock = stock
+        
+        this.verificarStock = function (cantDemandada){
+            if(this.stock >= cantDemandada){
+                console.log("Unidades disponibles! Tenemos "+this.stock+" unidades")
+                } else { 
+                console.log("Stock insuficiente. Solo tenemos "+this.stock+" unidades")
+                }
+            }
+
+        this.restarStock = function (cantDemandada) {
+            if(this.stock >= cantDemandada){
+                this.stock -= cantDemandada
+                console.log("Se restan "+cantDemandada+" unidades del stock. Restantes: "+this.stock)
+            } else { 
+                alert("stock insuficiente")
+                }
+            }
     }
-
-    restarStock(cantDemandada){
-        if(this.stock >= cantDemandada){
-            this.stock = this.stock-cantDemandada
-        } else { alert("stock insuficiente")}
-    }
-
-
 }
+
+const barra15kg = new Producto (1,"barra",16000,"Rogue","acero",30)
+
+const barra20kg = new Producto (2,"barra",19000,"Rogue","acero",30)
+
+const bumper5kg = new Producto (3,"disco",2800,"Rogue","caucho",60)
+
+const bumper10kg = new Producto (4,"disco",5800,"Rogue","caucho",60)
+
+const mancuerna5kg = new Producto (5,"mancuerna",1600,"Barbell","acero",30)
+
+const mancuerna7kg = new Producto (6,"mancuerna",2200,"Barbell","acero",30)
+
+const mancuerna10kg = new Producto (7,"mancuerna",3000,"Barbell","acero",30)
+
+const colchoneta = new Producto (8,"colchoneta",3000,"MIR","espuma alta densidad",200)
+
+//==============================
 
 producto = prompt("Ingrese producto(barra, disco, mancuerna, colchoneta): ").toLowerCase()
 
@@ -79,14 +109,17 @@ cantidad = parseInt(prompt("¿Cuantas unidades?"))
 console.log("unidades: "+cantidad)
 
 switch (producto) {
+    
     case "barra":
         peso = parseInt(prompt("De cuantos kg ¿15 o 20?"))
         switch (peso) {
             case 15:
-                precio = 10000
+                precio = barra15kg.precio
+                barra15kg.verificarStock(cantidad)
                 break
             case 20:
-                precio = 14000
+                precio = barra20kg.precio
+                barra20kg.verificarStock(cantidad)
                 break
             default:
                 alert("Solo vendemos barras de 15 o 20 kg. Por favor recargue la pagina e ingrese valor correcto")
@@ -101,16 +134,19 @@ switch (producto) {
         descuento = desc(mayorista,limDesc,descuento,cantidad)
         //funcion calculo de precio final
         let precioBarra = calculo(precio, descuento, impuesto, cantidad)
-        alert("$"+precioBarra)
+        alert("$"+precioBarra.toFixed(2))
         break
+
     case "disco":
         peso = parseInt(prompt("De cuantos kg ¿5 o 10?"))
         switch (peso) {
             case 5:
-                precio = 1200
+                precio = bumper5kg.precio
+                bumper5kg.verificarStock(cantidad)
                 break
             case 10:
-                precio = 2100
+                precio = bumper10kg.precio
+                bumper10kg.verificarStock(cantidad)
                 break
             default:
                 alert("Solo vendemos discos de 5 o 10 kg. Por favor recargue la pagina e ingrese valor correcto")
@@ -120,19 +156,23 @@ switch (producto) {
         descuento = 5
         descuento = desc(mayorista,limDesc,descuento,cantidad)
         let precioDisco = calculo(precio, descuento, impuesto, cantidad)
-        alert("$"+precioDisco)
+        alert("$"+precioDisco.toFixed(2))
         break
+
     case "mancuerna":
         peso = parseInt(prompt("De cuantos kg ¿5, 7 o 10?"))
         switch (peso) {
             case 5:
-                precio = 1700
+                precio = mancuerna5kg.precio
+                mancuerna5kg.verificarStock(cantidad)
                 break
             case 7:
-                precio = 2200
+                precio = mancuerna7kg.precio
+                mancuerna7kg.verificarStock(cantidad)
                 break
             case 10:
-                precio = 2500
+                precio = mancuerna10kg.precio
+                mancuerna10kg.verificarStock(cantidad)
                 break
             default:
                 alert("Solo vendemos mancuernas de 5, 7 o 10 kg. Por favor recargue la pagina e ingrese valor correcto")
@@ -142,17 +182,20 @@ switch (producto) {
         descuento = 4
         descuento = desc(mayorista,limDesc,descuento,cantidad)
         let precioMancu = calculo(precio, descuento, impuesto, cantidad)
-        alert("$"+precioMancu)
+        alert("$"+precioMancu.toFixed(2))
         break
+
     case "colchoneta":
-        precio = 1500
+        precio = colchoneta.precio
+        colchoneta.verificarStock(cantidad)
         mayorista = 5
         limDesc = 9
         descuento = 3
         descuento = desc(mayorista,limDesc,descuento,cantidad)
         let precioColcho = calculo(precio, descuento, impuesto, cantidad)
-        alert("$"+precioColcho)
+        alert("$"+precioColcho.toFixed(2))
         break
+
     default:
         alert("Producto incorrecto. Por favor recargue la pagina e ingrese valor correcto")
 }
