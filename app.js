@@ -14,7 +14,7 @@ const descMax = (min, max, percent) => percent+percent*(max-min)
 const tot = (precio,descuento) => (precio-(precio*(descuento/100)))
 
 //devuelve precio final
-function calculo (precio, descuento, impuesto, cantidad) {
+const calculo = (precio, descuento, impuesto, cantidad) => {
     let total = tot(precio,descuento)
     console.log ("precio unitario bruto con descuento = $"+total)
     total = total*impuesto
@@ -30,7 +30,7 @@ function calculo (precio, descuento, impuesto, cantidad) {
 3.el descuento fijado por unidad que supera ese umbral; y
 4.el limite de unidades que suman descuento para cada producto */
 
-function desc (minimo, maximo, porcentaje, cantidad) {
+const desc = (minimo, maximo, porcentaje, cantidad) => {
     let sum = porcentaje
     for (i = minimo; i <= maximo; i++) {
         if (cantidad < minimo) {
@@ -52,6 +52,12 @@ function desc (minimo, maximo, porcentaje, cantidad) {
 
 }
 
+const stockPrecio = (producto,cantidad) => {
+    let precio = producto.precio
+    producto.verificarStock(cantidad)
+    return precio
+}
+
 //CLASS Y CREACIÓN DE OBJETOS
 class Producto {
 
@@ -63,7 +69,7 @@ class Producto {
         this.material = material
         this.stock = stock
         
-        this.verificarStock = function (cantDemandada){
+        this.verificarStock = (cantDemandada) => {
             if(this.stock >= cantDemandada){
                 console.log("Unidades disponibles! Tenemos "+this.stock+" unidades")
                 } else { 
@@ -71,7 +77,8 @@ class Producto {
                 }
             }
 
-        this.restarStock = function (cantDemandada) {
+        this.restarStock = (cantDemandada) => {
+            cantDemandada = parseInt(cantDemandada)
             if(this.stock >= cantDemandada){
                 this.stock -= cantDemandada
                 console.log("Se restan "+cantDemandada+" unidades del stock. Restantes: "+this.stock)
@@ -114,12 +121,10 @@ switch (producto) {
         peso = parseInt(prompt("De cuantos kg ¿15 o 20?"))
         switch (peso) {
             case 15:
-                precio = barra15kg.precio
-                barra15kg.verificarStock(cantidad)
+                precio = stockPrecio (barra15kg,cantidad)
                 break
             case 20:
-                precio = barra20kg.precio
-                barra20kg.verificarStock(cantidad)
+                precio = stockPrecio (barra20kg,cantidad)
                 break
             default:
                 alert("Solo vendemos barras de 15 o 20 kg. Por favor recargue la pagina e ingrese valor correcto")
@@ -141,12 +146,10 @@ switch (producto) {
         peso = parseInt(prompt("De cuantos kg ¿5 o 10?"))
         switch (peso) {
             case 5:
-                precio = bumper5kg.precio
-                bumper5kg.verificarStock(cantidad)
+                precio = stockPrecio (bumper5kg,cantidad)
                 break
             case 10:
-                precio = bumper10kg.precio
-                bumper10kg.verificarStock(cantidad)
+                precio = stockPrecio (bumper10kg,cantidad)
                 break
             default:
                 alert("Solo vendemos discos de 5 o 10 kg. Por favor recargue la pagina e ingrese valor correcto")
@@ -163,16 +166,13 @@ switch (producto) {
         peso = parseInt(prompt("De cuantos kg ¿5, 7 o 10?"))
         switch (peso) {
             case 5:
-                precio = mancuerna5kg.precio
-                mancuerna5kg.verificarStock(cantidad)
+                precio = stockPrecio (mancuerna5kg,cantidad)
                 break
             case 7:
-                precio = mancuerna7kg.precio
-                mancuerna7kg.verificarStock(cantidad)
+                precio = stockPrecio (mancuerna7kg,cantidad)
                 break
             case 10:
-                precio = mancuerna10kg.precio
-                mancuerna10kg.verificarStock(cantidad)
+                precio = stockPrecio (mancuerna10kg,cantidad)
                 break
             default:
                 alert("Solo vendemos mancuernas de 5, 7 o 10 kg. Por favor recargue la pagina e ingrese valor correcto")
@@ -186,8 +186,7 @@ switch (producto) {
         break
 
     case "colchoneta":
-        precio = colchoneta.precio
-        colchoneta.verificarStock(cantidad)
+        precio = stockPrecio (colchoneta,cantidad)
         mayorista = 5
         limDesc = 9
         descuento = 3
