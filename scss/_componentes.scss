@@ -1,0 +1,34 @@
+.hero{
+    text-align: center;
+    color: $primLight;
+}
+.productos{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    text-align: center;
+    p{
+        margin:.4em;
+        font-size: 1.3em;
+    }
+    .productos__lista{
+        background-color: $layer3;
+        align-self: center;
+        padding: .8em;
+        margin: .4em;
+        border-radius: 1em;
+        .listElem{
+            padding: .4em;
+            margin: .4em;
+            background-color: $layer4;
+            border-radius: 1em;
+        }
+        p{
+            font-size: .8em;
+        }
+        span{
+            font-size: 1.3em;
+            color: $primario;
+        }
+    }
+}

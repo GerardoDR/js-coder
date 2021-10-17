@@ -1,14 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Objetos</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Crete+Round&display=swap" rel="stylesheet">
+    <title>Arrays</title>
 </head>
+
 <body>
-    <h1>Desafío clase 5 - OBJETOS</h1>
-    <h2>Gerardo Rodriguez</h2>
+    <div class="contenedor-index">
+        <div class="hero">
+            <h1>Desafío clase 6 - ARRAYS</h1>
+            <h2>Gerardo Rodriguez</h2>
+        </div>
+        <main class="productos">
+            <p>1º - se selecciona un elemento y su correspondiente peso en caso de requerirse. Por el momento los productos disponibles son:</p>
+            <ul class="productos__lista">
+                <li class="listElem"><span>"barra"</span>
+                    <ul>
+                        <li>15 kg.</li>
+                        <p>precio de lista: $16000 s/iva</p>
+                        <li>20 kg.</li>
+                        <p>precio de lista: $19000 s/iva</p>
+                    </ul>
+                    <p>Cantidad mínima mayorista: 3 unidades</p>
+                    <p>Cada unidad, contanto desde la mínima cantidad mayorista suma: 4% de descuento</p>
+                    <p>limite de descuento: 16%</p>
+                </li>
+                <li class="listElem"><span>"disco"</span>
+                    <ul>
+                        <li>5 kg.</li>
+                        <p>precio de lista: $2800 s/iva</p>
+                        <li>10 kg.</li>
+                        <p>precio de lista: $5800 s/iva</p>
+                    </ul>
+                    <p>Cantidad mínima mayorista: 5 unidades</p>
+                    <p>Cada unidad, contanto desde la mínima cantidad mayorista suma: 5% de descuento</p>
+                    <p>limite de descuento: 20%</p>
+                </li>
+                <li class="listElem"><span>"mancuernas"</span>
+                    <ul>
+                        <li>5 kg.</li>
+                        <p>precio de lista: $1600 s/iva</p>
+                        <li>7 kg.</li>
+                        <p>precio de lista: $2200 s/iva</p>
+                        <li>10 kg.</li>
+                        <p>precio de lista: $3000 s/iva</p>
+                    </ul>
+                    <p>Cantidad mínima mayorista: 3 unidades</p>
+                    <p>Cada unidad, contanto desde la mínima cantidad mayorista suma: 4% de descuento</p>
+                    <p>limite de descuento: 16%</p>
+                </li>
+                <li class="listElem"><span>"colchoneta"</span>
+                    <p>precio de lista: $3000 s/iva</p>
+                    <p>Cantidad mínima mayorista: 5 unidades</p>
+                    <p>Cada unidad, contanto desde la mínima cantidad mayorista suma: 3% de descuento</p>
+                    <p>limite de descuento: 15%</p>
+                </li>
+            </ul>
+            <p>2º - Se ingresa la cantidad que se quiere adquirir y la app arrojará el precio total de los elementos solicitados, realizando el descuento correspondiente, calculando IVA dentro del precio y verificando stock del producto. Todo ello, excepto el precio, se muestra por consola.</p>
+            <p>En caso de realizar una solicitud equívoca, recargar la página.</p>
+        </main>
+
+    <!-- <script src="./app.js"></script> -->
     <script src="./app.js"></script>
 </body>
+
 </html>

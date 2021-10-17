@@ -1,0 +1,61 @@
+//variables
+$primDark:#ba000d;
+$primario:#f44336;
+$primLight:#ff7961;
+
+$layer1:#000000;
+$layer2:#212121;
+$layer3:#424242;
+$layer4:#636363;
+$layer5:#747474;
+$layer6:#858585;
+
+
+// resets - generales
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Crete Round", sans-serif;
+    background-color: black;
+    color: white;
+}
+
+ul{
+    list-style-type: none;
+}
+
+@mixin wdt-hgt($w, $h) {
+    width: $w;
+    height: $h;
+}
+
+// LAYOUT
+
+/// INDEX
+
+.contenedor-index{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 20vh auto 1fr;
+    grid-template-areas:
+        "hero hero"
+        "productos productos"
+        "footer footer";
+    margin: 2em;
+}
+
+.hero{
+    grid-area: hero;
+}
+
+.productos{
+    grid-area: productos;
+    background-color: $layer2;
+    padding: .8em;
+    border-radius: 1em;
+}

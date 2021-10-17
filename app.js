@@ -6,6 +6,7 @@ let peso
 let cantidad = 1
 let mayorista
 let limDesc
+const productos = []
 
 //funcion que se introduce en desc()
 const descMax = (min, max, percent) => percent+percent*(max-min)
@@ -52,18 +53,25 @@ const desc = (minimo, maximo, porcentaje, cantidad) => {
 
 }
 
-const stockPrecio = (producto,cantidad) => {
-    let precio = producto.precio
-    producto.verificarStock(cantidad)
+const stockPrecio = (producto,peso,cantidad) => {
+    let precio
+
+    productos.forEach(element => {
+        if(element.nombre === producto && element.peso == peso){
+            precio = element.precio
+            element.verificarStock(cantidad)
+        }
+    })
     return precio
 }
 
 //CLASS Y CREACIÓN DE OBJETOS
 class Producto {
 
-    constructor(id,nombre,precio,marca,material,stock){
+    constructor(id,nombre,peso,precio,marca,material,stock){
         this.id = id
         this.nombre = nombre
+        this.peso = peso
         this.precio = precio
         this.marca = marca
         this.material = material
@@ -84,26 +92,26 @@ class Producto {
                 console.log("Se restan "+cantDemandada+" unidades del stock. Restantes: "+this.stock)
             } else { 
                 alert("stock insuficiente")
-                }
             }
+        }
     }
 }
+productos.push(new Producto (0,"barra",15,16000,"Rogue","acero",30))
 
-const barra15kg = new Producto (1,"barra",16000,"Rogue","acero",30)
+productos.push(new Producto (1,"barra",20,19000,"Rogue","acero",30))
 
-const barra20kg = new Producto (2,"barra",19000,"Rogue","acero",30)
+productos.push(new Producto (2,"disco",5,2800,"Rogue","caucho",60))
 
-const bumper5kg = new Producto (3,"disco",2800,"Rogue","caucho",60)
+productos.push(new Producto (3,"disco",10,5800,"Rogue","caucho",60))
 
-const bumper10kg = new Producto (4,"disco",5800,"Rogue","caucho",60)
+productos.push(new Producto (4,"mancuerna",5,1600,"Barbell","acero",30))
 
-const mancuerna5kg = new Producto (5,"mancuerna",1600,"Barbell","acero",30)
+productos.push(new Producto (5,"mancuerna",7,2200,"Barbell","acero",30))
 
-const mancuerna7kg = new Producto (6,"mancuerna",2200,"Barbell","acero",30)
+productos.push(new Producto (6,"mancuerna",10,3000,"Barbell","acero",30))
 
-const mancuerna10kg = new Producto (7,"mancuerna",3000,"Barbell","acero",30)
+productos.push(new Producto (7,"colchoneta",0,3000,"MIR","espuma alta densidad",200))
 
-const colchoneta = new Producto (8,"colchoneta",3000,"MIR","espuma alta densidad",200)
 
 //==============================
 
@@ -121,10 +129,12 @@ switch (producto) {
         peso = parseInt(prompt("De cuantos kg ¿15 o 20?"))
         switch (peso) {
             case 15:
-                precio = stockPrecio (barra15kg,cantidad)
+                //funcion que busque dentro del array productos, primero los llamados "barra" y después los que coincidan con el peso.
+                //hay que cambiar la funcion stockPrecio, para que reciba parametros (producto,peso,cantidad)
+                precio = stockPrecio (producto,peso,cantidad)
                 break
             case 20:
-                precio = stockPrecio (barra20kg,cantidad)
+                precio = stockPrecio (producto,peso,cantidad)
                 break
             default:
                 alert("Solo vendemos barras de 15 o 20 kg. Por favor recargue la pagina e ingrese valor correcto")
@@ -139,17 +149,17 @@ switch (producto) {
         descuento = desc(mayorista,limDesc,descuento,cantidad)
         //funcion calculo de precio final
         let precioBarra = calculo(precio, descuento, impuesto, cantidad)
-        alert("$"+precioBarra.toFixed(2))
+        alert("Precio de lista unitario: $"+precio+"\nDescuento por "+cantidad+" unidades: "+descuento+"%\nIVA: 21%\nPrecio total a pagar: $"+precioBarra.toFixed(2))
         break
 
     case "disco":
         peso = parseInt(prompt("De cuantos kg ¿5 o 10?"))
         switch (peso) {
             case 5:
-                precio = stockPrecio (bumper5kg,cantidad)
+                precio = stockPrecio (producto,peso,cantidad)
                 break
             case 10:
-                precio = stockPrecio (bumper10kg,cantidad)
+                precio = stockPrecio (producto,peso,cantidad)
                 break
             default:
                 alert("Solo vendemos discos de 5 o 10 kg. Por favor recargue la pagina e ingrese valor correcto")
@@ -159,20 +169,20 @@ switch (producto) {
         descuento = 5
         descuento = desc(mayorista,limDesc,descuento,cantidad)
         let precioDisco = calculo(precio, descuento, impuesto, cantidad)
-        alert("$"+precioDisco.toFixed(2))
+        alert("Precio de lista unitario: $"+precio+"\nDescuento por "+cantidad+" unidades: "+descuento+"%\nIVA: 21%\nPrecio total a pagar: $"+precioDisco.toFixed(2))
         break
 
     case "mancuerna":
         peso = parseInt(prompt("De cuantos kg ¿5, 7 o 10?"))
         switch (peso) {
             case 5:
-                precio = stockPrecio (mancuerna5kg,cantidad)
+                precio = stockPrecio (producto,peso,cantidad)
                 break
             case 7:
-                precio = stockPrecio (mancuerna7kg,cantidad)
+                precio = stockPrecio (producto,peso,cantidad)
                 break
             case 10:
-                precio = stockPrecio (mancuerna10kg,cantidad)
+                precio = stockPrecio (producto,peso,cantidad)
                 break
             default:
                 alert("Solo vendemos mancuernas de 5, 7 o 10 kg. Por favor recargue la pagina e ingrese valor correcto")
@@ -182,17 +192,18 @@ switch (producto) {
         descuento = 4
         descuento = desc(mayorista,limDesc,descuento,cantidad)
         let precioMancu = calculo(precio, descuento, impuesto, cantidad)
-        alert("$"+precioMancu.toFixed(2))
+        alert("Precio de lista unitario: $"+precio+"\nDescuento por "+cantidad+" unidades: "+descuento+"%\nIVA: 21%\nPrecio total a pagar: $"+precioMancu.toFixed(2))
         break
 
     case "colchoneta":
-        precio = stockPrecio (colchoneta,cantidad)
+        peso = 0
+        precio = stockPrecio (producto,peso,cantidad)
         mayorista = 5
         limDesc = 9
         descuento = 3
         descuento = desc(mayorista,limDesc,descuento,cantidad)
         let precioColcho = calculo(precio, descuento, impuesto, cantidad)
-        alert("$"+precioColcho.toFixed(2))
+        alert("Precio de lista unitario: $"+precio+"\nDescuento por "+cantidad+" unidades: "+descuento+"%\nIVA: 21%\nPrecio total a pagar: $"+precioColcho.toFixed(2))
         break
 
     default:
