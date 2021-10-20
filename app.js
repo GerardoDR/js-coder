@@ -6,6 +6,7 @@ let peso
 let cantidad = 1
 let mayorista
 let limDesc
+let total
 const productos = []
 
 //funcion que se introduce en desc()
@@ -37,7 +38,7 @@ const desc = (minimo, maximo, porcentaje, cantidad) => {
         if (cantidad < minimo) {
             console.log("descuento mayorista no aplicable")
             return 0
-        } else if (cantidad == i) {
+        } else if (cantidad === i) {
             console.log("Descuento calculado: " + sum + "%")
             return porcentaje
         } else if (cantidad <= maximo) {
@@ -54,14 +55,34 @@ const desc = (minimo, maximo, porcentaje, cantidad) => {
 }
 
 const stockPrecio = (producto, peso, cantidad) => {
+
     let precio
 
+    let stock
+
     productos.forEach(element => {
-        if (element.nombre === producto && element.peso == peso) {
-            precio = element.precio
-            element.verificarStock(cantidad)
+
+        if (element.nombre === producto && element.peso === peso) {
+
+            stock = element.verificarStock(cantidad)
+            console.log(cantidad)
+            
+            if(stock === true){
+
+                precio = element.precio
+
+                console.log("Stock disponible!")
+
+            }else if(stock === false){
+
+                precio = false
+                console.log("Stock insuficiente. Solo tenemos " + element.stock + " unidades")
+                alert("Stock insuficiente. Tenemos " + element.stock + " unidades disponibles.")
+
+            }
         }
     })
+
     return precio
 }
 
@@ -79,12 +100,15 @@ class Producto {
 
         this.verificarStock = (cantDemandada) => {
             if (this.stock >= cantDemandada) {
-                console.log("Unidades disponibles! Tenemos " + this.stock + " unidades")
+                // console.log("Unidades disponibles! Tenemos " + this.stock + " unidades")
+                return true
             } else {
-                console.log("Stock insuficiente. Solo tenemos " + this.stock + " unidades")
+                // console.log("Stock insuficiente. Solo tenemos " + this.stock + " unidades")
+                return false
             }
         }
 
+        //método sin uso, por el momento
         this.restarStock = (cantDemandada) => {
             cantDemandada = parseInt(cantDemandada)
             if (this.stock >= cantDemandada) {
@@ -109,97 +133,100 @@ productos.push(new Producto(7, "colchoneta", 0, 3000, "MIR", "espuma alta densid
 
 //==============================
 
-producto = prompt("Ingrese producto(barra, disco, mancuerna, colchoneta): ").toLowerCase()
+do {
+    producto = prompt("Ingrese producto(barra, disco, mancuerna, colchoneta): ").toLowerCase()
 
-console.log("producto elegido: " + producto)
+    console.log("producto elegido: " + producto)
 
-cantidad = parseInt(prompt("¿Cuantas unidades?"))
+    switch (producto) {
 
-console.log("unidades: " + cantidad)
+        case "barra":
 
-switch (producto) {
+            peso = parseInt(prompt("De cuantos kg ¿15 o 20?"))
 
-    case "barra":
-        peso = parseInt(prompt("De cuantos kg ¿15 o 20?"))
-        switch (peso) {
-            case 15:
-                //funcion que busque dentro del array productos, primero los llamados "barra" y después los que coincidan con el peso.
-                //hay que cambiar la funcion stockPrecio, para que reciba parametros (producto,peso,cantidad)
+            if (peso === 15 || peso === 20) {
+                //cantidad para descuento mayorista
+                mayorista = 3
+                //limite de descuento
+                limDesc = 6
+                //descuento por unidad adicional por encima de cantidad mayorista
+                descuento = 4
+
+                cantidad = Number(prompt("¿Cuantas unidades?"))
+                console.log("unidades: " + cantidad)
+
                 precio = stockPrecio(producto, peso, cantidad)
-                break
-            case 20:
-                precio = stockPrecio(producto, peso, cantidad)
-                break
-            default:
+
+            } else {
+                peso = false
                 alert("Solo vendemos barras de 15 o 20 kg. Por favor recargue la pagina e ingrese valor correcto")
-        }
-        //cantidad para descuento mayorista
-        mayorista = 3
-        //limite de descuento
-        limDesc = 6
-        //descuento por unidad adicional por encima de cantidad mayorista
-        descuento = 4
-        //funcion descuento
-        descuento = desc(mayorista, limDesc, descuento, cantidad)
-        //funcion calculo de precio final
-        let precioBarra = calculo(precio, descuento, impuesto, cantidad)
-        alert("Precio de lista unitario: $" + precio + "\nDescuento por " + cantidad + " unidades: " + descuento + "%\nIVA: 21%\nPrecio total a pagar: $" + precioBarra.toFixed(2))
-        break
+            }
+            break
 
-    case "disco":
-        peso = parseInt(prompt("De cuantos kg ¿5 o 10?"))
-        switch (peso) {
-            case 5:
+        case "disco":
+
+            peso = parseInt(prompt("De cuantos kg ¿5 o 10?"))
+
+            if (peso === 5 || peso === 10) {
+                mayorista = 5
+                limDesc = 8
+                descuento = 5
+
+                cantidad = Number(prompt("¿Cuantas unidades?"))
+                console.log("unidades: " + cantidad)
+
                 precio = stockPrecio(producto, peso, cantidad)
-                break
-            case 10:
-                precio = stockPrecio(producto, peso, cantidad)
-                break
-            default:
+
+            } else {
+                peso = false
                 alert("Solo vendemos discos de 5 o 10 kg. Por favor recargue la pagina e ingrese valor correcto")
-        }
-        mayorista = 5
-        limDesc = 8
-        descuento = 5
-        descuento = desc(mayorista, limDesc, descuento, cantidad)
-        let precioDisco = calculo(precio, descuento, impuesto, cantidad)
-        alert("Precio de lista unitario: $" + precio + "\nDescuento por " + cantidad + " unidades: " + descuento + "%\nIVA: 21%\nPrecio total a pagar: $" + precioDisco.toFixed(2))
-        break
+            }
+            break
 
-    case "mancuerna":
-        peso = parseInt(prompt("De cuantos kg ¿5, 7 o 10?"))
-        switch (peso) {
-            case 5:
+        case "mancuerna":
+
+            peso = parseInt(prompt("De cuantos kg ¿5, 7 o 10?"))
+
+            if (peso === 5 || peso === 7 || peso === 10) {
+                mayorista = 3
+                limDesc = 6
+                descuento = 4
+
+                cantidad = Number(prompt("¿Cuantas unidades?"))
+                console.log("unidades: " + cantidad)
+
                 precio = stockPrecio(producto, peso, cantidad)
-                break
-            case 7:
-                precio = stockPrecio(producto, peso, cantidad)
-                break
-            case 10:
-                precio = stockPrecio(producto, peso, cantidad)
-                break
-            default:
+
+            } else {
+                peso = false
                 alert("Solo vendemos mancuernas de 5, 7 o 10 kg. Por favor recargue la pagina e ingrese valor correcto")
-        }
-        mayorista = 3
-        limDesc = 6
-        descuento = 4
-        descuento = desc(mayorista, limDesc, descuento, cantidad)
-        let precioMancu = calculo(precio, descuento, impuesto, cantidad)
-        alert("Precio de lista unitario: $" + precio + "\nDescuento por " + cantidad + " unidades: " + descuento + "%\nIVA: 21%\nPrecio total a pagar: $" + precioMancu.toFixed(2))
-        break
+            }
+            break
 
-    case "colchoneta":
-        peso = 0
-        precio = stockPrecio(producto, peso, cantidad)
-        mayorista = 5
-        limDesc = 9
-        descuento = 3
-        descuento = desc(mayorista, limDesc, descuento, cantidad)
-        let precioColcho = calculo(precio, descuento, impuesto, cantidad)
-        alert("Precio de lista unitario: $" + precio + "\nDescuento por " + cantidad + " unidades: " + descuento + "%\nIVA: 21%\nPrecio total a pagar: $" + precioColcho.toFixed(2))
-        break
+        case "colchoneta":
 
-    default:
-        alert("Producto incorrecto. Por favor recargue la pagina e ingrese valor correcto")
-}
+            peso = 0
+            mayorista = 5
+            limDesc = 9
+            descuento = 3
+
+            cantidad = Number(prompt("¿Cuantas unidades?"))
+            console.log("unidades: " + cantidad)
+
+            precio = stockPrecio(producto, peso, cantidad)
+
+            break
+
+        default:
+            producto = false
+            alert("Producto incorrecto. Solo disponemos de las siguientes categorías de productos: \n barra\n disco\n mancuerna\n colchoneta\n Por favor, ingrese alguno de los valores anterior para continuar.")
+    }
+
+}while( producto === false || peso === false || precio === false)
+    // } while (producto == false || peso == false || precio == false)
+
+descuento = desc(mayorista, limDesc, descuento, cantidad)
+
+total = calculo(precio, descuento, impuesto, cantidad)
+
+alert("Precio de lista unitario: $" + precio + "\n\nDescuento por " + cantidad + " unidades: " + descuento + "%\n\nIVA: 21%\n\nPrecio total a pagar: $" + total.toFixed(2))

@@ -47,7 +47,7 @@ a {
     grid-template-columns: 1fr;
     grid-template-rows: 20vh auto 1fr;
     grid-template-areas:
-        "hero boton-desafio"
+        "hero hero"
         "productos productos"
         "footer footer";
     margin: 2em;
@@ -56,9 +56,7 @@ a {
 .hero {
     grid-area: hero;
 }
-.boton-desafio{
-    grid-area: boton-desafio;
-}
+
 .productos {
     grid-area: productos;
     background-color: $layer2;
