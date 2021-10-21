@@ -12,20 +12,6 @@ const productos = []
 //funcion que se introduce en desc()
 const descMax = (min, max, percent) => percent + percent * (max - min)
 
-//funcion que se introduce en calculo()
-const tot = (precio, descuento) => (precio - (precio * (descuento / 100)))
-
-//devuelve precio final
-const calculo = (precio, descuento, impuesto, cantidad) => {
-    let total = tot(precio, descuento)
-    console.log("precio unitario bruto con descuento = $" + total)
-    total = total * impuesto
-    console.log("precio unitario con descuento e impuesto = $" + total)
-    total = total * cantidad
-    console.log("precio final= $" + total.toFixed(2) + " ==> " + cantidad + " unidad/es.")
-    return total
-}
-
 /* Devuelve el descuento de acuerdo a:
 1.la cantidad de productos;
 2.el umbral a partir del que empieza a hacerse el descuento;
@@ -51,39 +37,54 @@ const desc = (minimo, maximo, porcentaje, cantidad) => {
             return porcentaje
         }
     }
-
 }
 
+/* Producto ingresa en el "do", luego se ingresa por prompt el peso, si corresponde para el producto, y se modifican las variables para la función desc()
+Luego de eso, se ingresa por prompt la cantidad, que es parseada a entero. Estos 3 parámetros ingresan a la siguiente función:
+1. Primero se depura el ingreso de cantidad, para evitar que se permita el ingreso de "".
+2. Si se ingresa un valor aceptable de cantidad, se recorre el array buscando un producto y peso que coincidan con los ingresados.
+    Cuando se encuentra, se ingresa cantidad al método this.verificarStock que devuelve "true" si el stock del producto es >= a cantidad y false si es < y asigna el booleano a la variable "stock"
+3. se evalúa el contenido de "stock", y en caso de true, la variable "precio" toma el valor de "this.precio", caso contrario toma el valor de falso
+4. Si cantidad, al principio era "NaN", la función no recorrió el array, y por el else de este condicional se le asigna el valor false a "precio".
+5. la función retorna el valor de precio */
+
 const stockPrecio = (producto, peso, cantidad) => {
-
     let precio
-
     let stock
-
-    productos.forEach(element => {
-
-        if (element.nombre === producto && element.peso === peso) {
-
-            stock = element.verificarStock(cantidad)
-            console.log(cantidad)
-            
-            if(stock === true){
-
-                precio = element.precio
-
-                console.log("Stock disponible!")
-
-            }else if(stock === false){
-
-                precio = false
-                console.log("Stock insuficiente. Solo tenemos " + element.stock + " unidades")
-                alert("Stock insuficiente. Tenemos " + element.stock + " unidades disponibles.")
-
+    if (!isNaN(cantidad)) {
+        productos.forEach(element => {
+            if (element.nombre === producto && element.peso === peso) {
+                stock = element.verificarStock(cantidad)
+                if (stock === true) {
+                    precio = element.precio
+                    console.log("Stock disponible!")
+                } else if (stock === false) {
+                    precio = false
+                    console.log("Stock insuficiente. Solo tenemos " + element.stock + " unidades")
+                    alert("Stock insuficiente. Tenemos " + element.stock + " unidades disponibles.")
+                }
             }
-        }
-    })
-
+        })
+    } else {
+        alert("Ingreso de cantidad erroneo. Por favor, ingrese los detalles nuevamente.")
+        console.log("Valor de cantidad: " + cantidad + ". Ingreso erroneo")
+        precio = false
+    }
     return precio
+}
+
+//funcion que se introduce en calculo()
+const tot = (precio, descuento) => (precio - (precio * (descuento / 100)))
+
+//devuelve precio final
+const calculo = (precio, descuento, impuesto, cantidad) => {
+    let total = tot(precio, descuento)
+    console.log("precio unitario bruto con descuento = $" + total)
+    total = total * impuesto
+    console.log("precio unitario con descuento e impuesto = $" + total)
+    total = total * cantidad
+    console.log("precio final= $" + total.toFixed(2) + " ==> " + cantidad + " unidad/es.")
+    return total
 }
 
 //CLASS Y CREACIÓN DE OBJETOS
@@ -135,15 +136,12 @@ productos.push(new Producto(7, "colchoneta", 0, 3000, "MIR", "espuma alta densid
 
 do {
     producto = prompt("Ingrese producto(barra, disco, mancuerna, colchoneta): ").toLowerCase()
-
     console.log("producto elegido: " + producto)
 
     switch (producto) {
 
         case "barra":
-
             peso = parseInt(prompt("De cuantos kg ¿15 o 20?"))
-
             if (peso === 15 || peso === 20) {
                 //cantidad para descuento mayorista
                 mayorista = 3
@@ -152,11 +150,9 @@ do {
                 //descuento por unidad adicional por encima de cantidad mayorista
                 descuento = 4
 
-                cantidad = Number(prompt("¿Cuantas unidades?"))
+                cantidad = parseInt(prompt("¿Cuantas unidades?"))
                 console.log("unidades: " + cantidad)
-
                 precio = stockPrecio(producto, peso, cantidad)
-
             } else {
                 peso = false
                 alert("Solo vendemos barras de 15 o 20 kg. Por favor recargue la pagina e ingrese valor correcto")
@@ -164,19 +160,15 @@ do {
             break
 
         case "disco":
-
             peso = parseInt(prompt("De cuantos kg ¿5 o 10?"))
-
             if (peso === 5 || peso === 10) {
                 mayorista = 5
                 limDesc = 8
                 descuento = 5
 
-                cantidad = Number(prompt("¿Cuantas unidades?"))
+                cantidad = parseInt(prompt("¿Cuantas unidades?"))
                 console.log("unidades: " + cantidad)
-
                 precio = stockPrecio(producto, peso, cantidad)
-
             } else {
                 peso = false
                 alert("Solo vendemos discos de 5 o 10 kg. Por favor recargue la pagina e ingrese valor correcto")
@@ -184,19 +176,15 @@ do {
             break
 
         case "mancuerna":
-
             peso = parseInt(prompt("De cuantos kg ¿5, 7 o 10?"))
-
             if (peso === 5 || peso === 7 || peso === 10) {
                 mayorista = 3
                 limDesc = 6
                 descuento = 4
 
-                cantidad = Number(prompt("¿Cuantas unidades?"))
+                cantidad = parseInt(prompt("¿Cuantas unidades?"))
                 console.log("unidades: " + cantidad)
-
                 precio = stockPrecio(producto, peso, cantidad)
-
             } else {
                 peso = false
                 alert("Solo vendemos mancuernas de 5, 7 o 10 kg. Por favor recargue la pagina e ingrese valor correcto")
@@ -204,17 +192,14 @@ do {
             break
 
         case "colchoneta":
-
             peso = 0
             mayorista = 5
             limDesc = 9
             descuento = 3
 
-            cantidad = Number(prompt("¿Cuantas unidades?"))
+            cantidad = parseInt(prompt("¿Cuantas unidades?"))
             console.log("unidades: " + cantidad)
-
             precio = stockPrecio(producto, peso, cantidad)
-
             break
 
         default:
@@ -222,11 +207,12 @@ do {
             alert("Producto incorrecto. Solo disponemos de las siguientes categorías de productos: \n barra\n disco\n mancuerna\n colchoneta\n Por favor, ingrese alguno de los valores anterior para continuar.")
     }
 
-}while( producto === false || peso === false || precio === false)
-    // } while (producto == false || peso == false || precio == false)
+console.log("ERROR CHECK: "+producto+ ", "+peso+", "+precio)
+
+} while (producto === false || peso === false || precio === false)
 
 descuento = desc(mayorista, limDesc, descuento, cantidad)
 
 total = calculo(precio, descuento, impuesto, cantidad)
 
-alert("Precio de lista unitario: $" + precio + "\n\nDescuento por " + cantidad + " unidades: " + descuento + "%\n\nIVA: 21%\n\nPrecio total a pagar: $" + total.toFixed(2))
+alert("Precio de lista por unidad: $" + precio + "\n\nDescuento por " + cantidad + " unidades: " + descuento + "%\n\nIVA: 21%\n\nPrecio total a pagar: $" + total.toFixed(2))
