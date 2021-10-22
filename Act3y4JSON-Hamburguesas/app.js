@@ -1,6 +1,10 @@
 /*Declarar un clase Hamburgesa que permita registrar nombre de la hamburguesa, el precio, los ingredientes, y el número de combo.
 Luego instanciar al menos cinco (5) objetos usando esta clase, asociarlos a un array, y almacenarlos con la clave ‘hamburguesas’ en el localStorage.*/
 
+/*Obtener desde el localStorage el array de objetos almacenado durante la actividad 3, con la clave ‘hamburguesas’. Recorrer el array generando un listado con el detalle de cada hamburguesa, asociando un número de selección en función de la posición.
+Por último, capturar una entrada con la selección del usuario, confirmando la información del producto escogido.
+*/
+
 class Hamburgesa{
     constructor(nombre, precio, ingredientes, combo){
         this.nombre=nombre
@@ -18,4 +22,5 @@ hamburguesas.push(new Hamburgesa("veggie",500,"medallon de cualquier cosa menos 
 hamburguesas.push(new Hamburgesa("regular",500,"carne, tomate y lechuga",4))
 hamburguesas.push(new Hamburgesa("blue",500,"carne y queso azul",5))
 
-localStorage.setItem("hamburguesas", hamburguesas)
+localStorage.setItem("hamburguesas", JSON.stringify(hamburguesas))
+
