@@ -18,4 +18,4 @@ hamburguesas.push(new Hamburgesa("veggie",500,"medallon de cualquier cosa menos 
 hamburguesas.push(new Hamburgesa("regular",500,"carne, tomate y lechuga",4))
 hamburguesas.push(new Hamburgesa("blue",500,"carne y queso azul",5))
 
-localStorage.setItem("hamburguesas", hamburguesas)
+localStorage.setItem("hamburguesas", JSON.stringify(hamburguesas))
