@@ -4,6 +4,7 @@ Luego instanciar al menos cinco (5) objetos usando esta clase, asociarlos a un a
 /*Obtener desde el localStorage el array de objetos almacenado durante la actividad 3, con la clave ‘hamburguesas’. Recorrer el array generando un listado con el detalle de cada hamburguesa, asociando un número de selección en función de la posición.
 Por último, capturar una entrada con la selección del usuario, confirmando la información del producto escogido.
 */
+localStorage.clear()
 
 class Hamburgesa{
     constructor(nombre, precio, ingredientes, combo){

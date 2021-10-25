@@ -1,8 +1,12 @@
 /*Obtener desde el localStorage el array de objetos almacenado durante la actividad 3, con la clave ‘hamburguesas’. Recorrer el array generando un listado con el detalle de cada hamburguesa, asociando un número de selección en función de la posición.
 Por último, capturar una entrada con la selección del usuario, confirmando la información del producto escogido.*/
 
+
+
 const hamburguesa = JSON.parse(localStorage.getItem('hamburguesas'))
+
 let combos = []
+
 for (hambur of hamburguesa){
         
     combos += `\nHamburguesa ${hambur.combo} -> ${hambur.nombre} -> ${hambur.ingredientes} -> $${hambur.precio}`
