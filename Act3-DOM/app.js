@@ -7,21 +7,15 @@ const body = document.querySelector('body')
 // const selectPaises = document.createElement('select')
 
 const selectPaises = document.querySelector('#paises')
-
 console.log(selectPaises)
 
 paises.forEach((elem, index) => {
-
     const optionPaises = document.createElement('option')
-
     optionPaises.value = `${index}`
-
     optionPaises.innerHTML =
         `<p>${elem}</p>
     `
-
     selectPaises.append(optionPaises)
-
 })
 
 // body.append(selectPaises)
