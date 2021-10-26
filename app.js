@@ -216,3 +216,7 @@ descuento = desc(mayorista, limDesc, descuento, cantidad)
 total = calculo(precio, descuento, impuesto, cantidad)
 
 alert("Precio de lista por unidad: $" + precio + "\n\nDescuento por " + cantidad + " unidades: " + descuento + "%\n\nIVA: 21%\n\nPrecio total a pagar: $" + total.toFixed(2))
+
+
+/////////////////////////////////////////////////////////////////
+

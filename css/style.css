@@ -1,79 +1,74 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+}
 
 body {
   font-family: "Crete Round", sans-serif;
   background-color: black;
-  color: white; }
+  color: white;
+}
 
 ul {
-  list-style-type: none; }
+  list-style-type: none;
+}
 
 a {
-  text-decoration: none; }
+  text-decoration: none;
+}
 
 .contenedor-index {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 20vh auto 1fr;
-  grid-template-areas: "hero boton-desafio" "productos productos" "footer footer";
-  margin: 2em; }
+  grid-template-areas: "hero hero" "productos productos" "footer footer";
+  margin: 2em;
+}
 
 .hero {
-  grid-area: hero; }
-
-.boton-desafio {
-  grid-area: boton-desafio; }
+  grid-area: hero;
+}
 
 .productos {
   grid-area: productos;
   background-color: #212121;
-  padding: .8em;
-  border-radius: 1em; }
+  padding: 0.8em;
+  border-radius: 1em;
+}
 
 .hero {
   text-align: center;
-  color: #ff7961; }
-
-a.boton {
-  background-color: #212121;
-  display: inline-block;
-  padding: 0.3em 1.2em;
-  margin: 1em 0.1em 1em 0;
-  border: 0.16em solid rgba(255, 255, 255, 0);
-  border-radius: 2em;
-  text-decoration: none;
-  color: white;
-  text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-  text-align: center;
-  font-weight: 300; }
-  a.boton:hover {
-    border-color: #ba000d;
-    transition: border-color 0.2s; }
+  color: #ff7961;
+}
 
 .productos {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  text-align: center; }
-  .productos p {
-    margin: .4em;
-    font-size: 1.3em; }
-  .productos .productos__lista {
-    background-color: #424242;
-    align-self: center;
-    padding: .8em;
-    margin: .4em;
-    border-radius: 1em; }
-    .productos .productos__lista .listElem {
-      padding: .4em;
-      margin: .4em;
-      background-color: #636363;
-      border-radius: 1em; }
-    .productos .productos__lista p {
-      font-size: .8em; }
-    .productos .productos__lista span {
-      font-size: 1.3em;
-      color: #f44336; }
+  text-align: center;
+}
+.productos p {
+  margin: 0.4em;
+  font-size: 1.3em;
+}
+.productos .productos__lista {
+  background-color: #424242;
+  align-self: center;
+  padding: 0.8em;
+  margin: 0.4em;
+  border-radius: 1em;
+}
+.productos .productos__lista .listElem {
+  padding: 0.4em;
+  margin: 0.4em;
+  background-color: #636363;
+  border-radius: 1em;
+}
+.productos .productos__lista p {
+  font-size: 0.8em;
+}
+.productos .productos__lista span {
+  font-size: 1.3em;
+  color: #f44336;
+}
