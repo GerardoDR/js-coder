@@ -131,6 +131,8 @@ productos.push(new Producto(5, "mancuerna", 7, 2200, "Barbell", "acero", 30))
 productos.push(new Producto(6, "mancuerna", 10, 3000, "Barbell", "acero", 30))
 productos.push(new Producto(7, "colchoneta", 0, 3000, "MIR", "espuma alta densidad", 200))
 
+localStorage.setItem("productos", JSON.stringify(productos))
+
 
 //==============================
 
