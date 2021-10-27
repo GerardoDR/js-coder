@@ -82,26 +82,25 @@ class Producto {
         this.marca = marca
         this.material = material
         this.stock = stock
-
-        this.verificarStock = (cantDemandada) => {
-            if (this.stock >= cantDemandada) {
-                // console.log("Unidades disponibles! Tenemos " + this.stock + " unidades")
-                return true
-            } else {
-                // console.log("Stock insuficiente. Solo tenemos " + this.stock + " unidades")
-                return false
-            }
+    }
+    verificarStock = (cantDemandada) => {
+        if (this.stock >= cantDemandada) {
+            // console.log("Unidades disponibles! Tenemos " + this.stock + " unidades")
+            return true
+        } else {
+            // console.log("Stock insuficiente. Solo tenemos " + this.stock + " unidades")
+            return false
         }
+    }
 
-        //método sin uso, por el momento
-        this.restarStock = (cantDemandada) => {
-            cantDemandada = parseInt(cantDemandada)
-            if (this.stock >= cantDemandada) {
-                this.stock -= cantDemandada
-                console.log("Se restan " + cantDemandada + " unidades del stock. Restantes: " + this.stock)
-            } else {
-                alert("stock insuficiente")
-            }
+    //método sin uso, por el momento
+    restarStock = (cantDemandada) => {
+        cantDemandada = parseInt(cantDemandada)
+        if (this.stock >= cantDemandada) {
+            this.stock -= cantDemandada
+            console.log("Se restan " + cantDemandada + " unidades del stock. Restantes: " + this.stock)
+        } else {
+            alert("stock insuficiente")
         }
     }
 }
