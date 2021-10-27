@@ -23,7 +23,7 @@
 
 .productos {
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     flex-direction: column;
     text-align: center;
 
@@ -38,6 +38,7 @@
         padding: .8em;
         margin: .4em;
         border-radius: 1em;
+        width: 45vw;
 
         .listElem {
             padding: .4em;

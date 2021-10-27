@@ -9,35 +9,19 @@ let limDesc
 let total
 const productos = []
 
-//funcion que se introduce en desc()
-const descMax = (min, max, percent) => percent + percent * (max - min)
-
-/* Devuelve el descuento de acuerdo a:
-1.la cantidad de productos;
-2.el umbral a partir del que empieza a hacerse el descuento;
-3.el descuento fijado por unidad que supera ese umbral; y
-4.el limite de unidades que suman descuento para cada producto */
-
-const desc = (minimo, maximo, porcentaje, cantidad) => {
-    let sum = porcentaje
-    for (i = minimo; i <= maximo; i++) {
-        if (cantidad < minimo) {
-            console.log("descuento mayorista no aplicable")
-            return 0
-        } else if (cantidad === i) {
-            console.log("Descuento calculado: " + sum + "%")
-            return porcentaje
-        } else if (cantidad <= maximo) {
-            sum = sum + porcentaje
-            //agregar variable por afuera, que iguale a porcentaje, tomar ambas dentro de la funcion y modificar una de ellas
-            console.log("i toma el valor de: " + i + "\n" + "Se agrega descuento... +" + porcentaje + "%\n porcentaje toma el valor de: " + sum + "%")
-        } else {
-            porcentaje = descMax(minimo, maximo, porcentaje)
-            console.log("No se realizan iteraciones, salida automática." + "\n" + "porcentaje toma el valor de: " + porcentaje + "%" + "\n" + "Máximo descuento mayorista aplicado para el producto")
-            return porcentaje
-        }
+const desc = (cantidad) => {
+    if(cantidad >= 5 && cantidad < 10){
+        console.log('Se aplica 5% de descuento')
+        return 5
+    }else if(cantidad >= 10){
+        console.log('Se aplica 10% de descuento')
+        return 10
+    }else{
+        console.log("descuento mayorista no aplicable")
+        return 0
     }
 }
+
 
 /* Producto ingresa en el "do", luego se ingresa por prompt el peso, si corresponde para el producto, y se modifican las variables para la función desc()
 Luego de eso, se ingresa por prompt la cantidad, que es parseada a entero. Estos 3 parámetros ingresan a la siguiente función:
@@ -145,13 +129,6 @@ do {
         case "barra":
             peso = parseInt(prompt("De cuantos kg ¿15 o 20?"))
             if (peso === 15 || peso === 20) {
-                //cantidad para descuento mayorista
-                mayorista = 3
-                //limite de descuento
-                limDesc = 6
-                //descuento por unidad adicional por encima de cantidad mayorista
-                descuento = 4
-
                 cantidad = parseInt(prompt("¿Cuantas unidades?"))
                 console.log("unidades: " + cantidad)
                 precio = stockPrecio(producto, peso, cantidad)
@@ -164,10 +141,6 @@ do {
         case "disco":
             peso = parseInt(prompt("De cuantos kg ¿5 o 10?"))
             if (peso === 5 || peso === 10) {
-                mayorista = 5
-                limDesc = 8
-                descuento = 5
-
                 cantidad = parseInt(prompt("¿Cuantas unidades?"))
                 console.log("unidades: " + cantidad)
                 precio = stockPrecio(producto, peso, cantidad)
@@ -180,10 +153,6 @@ do {
         case "mancuerna":
             peso = parseInt(prompt("De cuantos kg ¿5, 7 o 10?"))
             if (peso === 5 || peso === 7 || peso === 10) {
-                mayorista = 3
-                limDesc = 6
-                descuento = 4
-
                 cantidad = parseInt(prompt("¿Cuantas unidades?"))
                 console.log("unidades: " + cantidad)
                 precio = stockPrecio(producto, peso, cantidad)
@@ -195,10 +164,6 @@ do {
 
         case "colchoneta":
             peso = 0
-            mayorista = 5
-            limDesc = 9
-            descuento = 3
-
             cantidad = parseInt(prompt("¿Cuantas unidades?"))
             console.log("unidades: " + cantidad)
             precio = stockPrecio(producto, peso, cantidad)
@@ -213,7 +178,7 @@ console.log("ERROR CHECK: "+producto+ ", "+peso+", "+precio)
 
 } while (producto === false || peso === false || precio === false)
 
-descuento = desc(mayorista, limDesc, descuento, cantidad)
+descuento = desc(cantidad)
 
 total = calculo(precio, descuento, impuesto, cantidad)
 
