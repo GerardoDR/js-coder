@@ -1,0 +1,42 @@
+// LAYOUT
+
+/// INDEX
+
+.contenedor-index {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 10vh 40vh 1fr 1fr;
+    grid-template-areas:
+        "nav nav"
+        "indHero indHero"
+        "indProd indProd"
+        "indfooter indfooter";
+    margin: 2em;
+    gap: 1em;
+}
+
+.nav{
+    grid-area: nav;
+}
+.indHero {
+    grid-area: indHero;
+}
+.indProd {
+    grid-area: indProd;
+}
+.indfooter{
+    grid-area: indfooter;
+}
+
+/////////////
+
+.contenedor-productos {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 10vh auto 10vh;
+    grid-template-areas:
+        "nav nav"
+        "prod prod"
+        "prodFooter prodFooter";
+    margin: 2em;
+}

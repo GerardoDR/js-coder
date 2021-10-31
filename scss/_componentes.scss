@@ -1,7 +1,59 @@
-.hero {
-    text-align: center;
-    color: $primLight;
+.nav {
+    ul {
+        background-color: $layer2;
+        border-radius: 1em;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        flex-wrap: nowrap;
+        color: $primLight;
+        align-items: center;
+
+        img {
+            @include wdt-hgt(3.5rem, auto);
+            padding-top: .2em;
+        }
+
+        a {
+            display: inline-block;
+            padding: 0.5em .5em;
+            margin: .2em 0 .2em 0;
+            border: 0.16em solid rgba(255, 255, 255, 0);
+            border-radius: .5em;
+            color: white;
+            text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+
+            &:hover {
+                background-color: $layer3;
+                border-color: $primDark;
+                transition: border-color 0.2s;
+            }
+        }
+
+        // padding: .5em 1em;
+        // border-radius: .5em;
+        // &:hover{
+        //     background-color:$layer3 ;
+        //     box-shadow: 0 0 .5em $primLight;
+        //     color: $primario;
+        // }
+    }
 }
+
+
+.indHero {
+    background-color: $layer2;
+    border-radius: 1em;
+    display: flex;
+    justify-content: center;
+    background-image: url(../assets/fondo.png);
+
+    img {
+        padding: 1em;
+    }
+}
+
+
 // a.boton {
 //     background-color: $layer2;
 //     display: inline-block;
@@ -21,41 +73,14 @@
 //     }
 // }
 
-.productos {
-    display: flex;
-    // justify-content: space-between;
-    flex-direction: column;
-    text-align: center;
+// .indProd {
+//     display: flex;
+//     // justify-content: space-between;
+//     flex-direction: column;
+//     text-align: center;
 
-    p {
-        margin: .4em;
-        font-size: 1.3em;
-    }
-
-    .productos__lista {
-        background-color: $layer3;
-        align-self: center;
-        padding: .8em;
-        margin: .4em;
-        border-radius: 1em;
-        width: 45vw;
-
-        .listElem {
-            padding: .4em;
-            margin: .4em;
-            background-color: $layer4;
-            border-radius: 1em;
-        }
-
-        p {
-            font-size: .8em;
-        }
-
-        span {
-            font-size: 1.3em;
-            color: $primario;
-        }
-    }
-}
-
-
+//     p {
+//         margin: .4em;
+//         font-size: 1.3em;
+//     }
+// }
