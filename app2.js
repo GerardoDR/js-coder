@@ -96,10 +96,7 @@ const calculo = (precio, descuento, impuesto, cantidad) => {
 
 const qProd = document.querySelectorAll('.qProd');
 const prodMain = document.querySelector('.prodMain');
-const cont = document.querySelector('.contenedor');
 const home = document.querySelector('.home');
-cont.id = 'contenedor-index1';
-console.log(cont)
 
 const filtro = (arr,nombre) => {
     const filtrado = arr.filter((prod) => prod.nombre === nombre);
@@ -124,20 +121,21 @@ const listarProductos = (arrayFiltrado) => {
     })
 }
 
-home.addEventListener('click', () => cont.id = "contenedor-index1")
-
-qProd.addEventListener('click', () => cont.id='contenedor-index2')
+home.addEventListener('click', (event) =>{
+event.preventDefault()
+listarProductos(productos)
+})
 
 qProd.forEach((e) => e.addEventListener('click', (event) => {
     event.preventDefault()
-    if (e.className === 'qProd barra'){
+    if (e.className.includes('barra')){
         const filtrado = filtro(productos,'barra');
         console.log(filtrado)
         const div = listarProductos(filtrado);
-    }else if(e.className === 'qProd disco'){
+    }else if(e.className.includes('disco')){
         const filtrado = filtro(productos,'disco');
         const div = listarProductos(filtrado)
-    }else if(e.className === 'qProd mancuerna'){
+    }else if(e.className.includes('mancuerna')){
         const filtrado = filtro(productos,'mancuerna');
         const div = listarProductos(filtrado);
     }else{
