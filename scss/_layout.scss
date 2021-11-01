@@ -2,15 +2,36 @@
 
 /// INDEX
 
-.contenedor-index {
+.contenedor {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 10vh 40vh 1fr 1fr;
+    grid-template-rows: 10vh 40vh 1fr 10vh;
+}
+
+#contenedor-index2{
+    // display: grid;
+    // grid-template-columns: 1fr 1fr;
+    grid-template-rows: 10vh 1fr 10vh;
+    grid-template-areas:
+        "nav nav"
+        "prod prod"
+        "indFooter indFooter";
+    margin: 2em;
+    gap: 1em;
+
+    .indHero{
+        visibility: hidden;
+    }
+}
+
+#contenedor-index1 {
+    // display: grid;
+    // grid-template-columns: 1fr 1fr;
+    grid-template-rows: 10vh 40vh 1fr 10vh;
     grid-template-areas:
         "nav nav"
         "indHero indHero"
-        "indProd indProd"
-        "indfooter indfooter";
+        "prod prod"
+        "indFooter indFooter";
     margin: 2em;
     gap: 1em;
 }
@@ -21,22 +42,26 @@
 .indHero {
     grid-area: indHero;
 }
-.indProd {
-    grid-area: indProd;
+
+.prodMain{
+    grid-area: prod;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    // grid-template-rows: repeat(5, 1fr);
+    grid-gap: 1em;
+    min-height: 100vh;
+    align-items: flex-start;
+    #proximamente{
+        grid-row-start: 2;
+        grid-column-start: 2;
+    }
 }
-.indfooter{
-    grid-area: indfooter;
+
+.indFooter{
+    grid-area: indFooter;
 }
 
 /////////////
 
-.contenedor-productos {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 10vh auto 10vh;
-    grid-template-areas:
-        "nav nav"
-        "prod prod"
-        "prodFooter prodFooter";
-    margin: 2em;
-}
+
+

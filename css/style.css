@@ -18,11 +18,21 @@ a {
   text-decoration: none;
   color: inherit; }
 
-.contenedor-index {
+.contenedor {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 10vh 40vh 1fr 1fr;
-  grid-template-areas: "nav nav" "indHero indHero" "indProd indProd" "indfooter indfooter";
+  grid-template-rows: 10vh 40vh 1fr 10vh; }
+
+#contenedor-index2 {
+  grid-template-rows: 10vh 1fr 10vh;
+  grid-template-areas: "nav nav" "prod prod" "indFooter indFooter";
+  margin: 2em;
+  gap: 1em; }
+  #contenedor-index2 .indHero {
+    visibility: hidden; }
+
+#contenedor-index1 {
+  grid-template-rows: 10vh 40vh 1fr 10vh;
+  grid-template-areas: "nav nav" "indHero indHero" "prod prod" "indFooter indFooter";
   margin: 2em;
   gap: 1em; }
 
@@ -32,18 +42,19 @@ a {
 .indHero {
   grid-area: indHero; }
 
-.indProd {
-  grid-area: indProd; }
-
-.indfooter {
-  grid-area: indfooter; }
-
-.contenedor-productos {
+.prodMain {
+  grid-area: prod;
   display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 10vh auto 10vh;
-  grid-template-areas: "nav nav" "prod prod" "prodFooter prodFooter";
-  margin: 2em; }
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1em;
+  min-height: 100vh;
+  align-items: flex-start; }
+  .prodMain #proximamente {
+    grid-row-start: 2;
+    grid-column-start: 2; }
+
+.indFooter {
+  grid-area: indFooter; }
 
 .nav ul {
   background-color: #212121;
@@ -60,11 +71,11 @@ a {
     padding-top: .2em; }
   .nav ul a {
     display: inline-block;
-    padding: 0.5em .5em;
+    padding: 0.3em .3em;
     margin: .2em 0 .2em 0;
     border: 0.16em solid rgba(255, 255, 255, 0);
     border-radius: .5em;
-    color: white;
+    color: #ff7961;
     text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35); }
     .nav ul a:hover {
       background-color: #424242;
@@ -79,3 +90,16 @@ a {
   background-image: url(../assets/fondo.png); }
   .indHero img {
     padding: 1em; }
+
+.prodMain__elemento {
+  padding: 1em;
+  background-color: #212121;
+  border-radius: 1em;
+  text-align: center; }
+  .prodMain__elemento .caps {
+    text-transform: capitalize; }
+  .prodMain__elemento img {
+    border-radius: .5em;
+    width: 50%;
+    height: auto;
+    margin: .5em; }

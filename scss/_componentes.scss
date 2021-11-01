@@ -16,11 +16,11 @@
 
         a {
             display: inline-block;
-            padding: 0.5em .5em;
+            padding: 0.3em .3em;
             margin: .2em 0 .2em 0;
             border: 0.16em solid rgba(255, 255, 255, 0);
             border-radius: .5em;
-            color: white;
+            color: $primLight;
             text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
 
             &:hover {
@@ -53,7 +53,7 @@
     }
 }
 
-
+////////////////////////////////////////////
 // a.boton {
 //     background-color: $layer2;
 //     display: inline-block;
@@ -84,3 +84,19 @@
 //         font-size: 1.3em;
 //     }
 // }
+/////////////////////////////////////
+
+.prodMain__elemento{
+    padding: 1em;
+    background-color: $layer2;
+    border-radius: 1em;
+    text-align: center;
+    .caps{
+        text-transform: capitalize;
+    }
+    img{
+        border-radius: .5em;
+        @include wdt-hgt(50%,auto);
+        margin: .5em;
+    }
+}
