@@ -107,24 +107,29 @@ const listarProductos = (arrayFiltrado) => {
     prodMain.innerHTML="";
     arrayFiltrado.forEach((e) => {
         const creaDiv = document.createElement('div');
-        creaDiv.classList.add('prodMain__elemento');
-        creaDiv.innerHTML= `
-        <h3 class="caps">${e.nombre} ${e.peso} kg</h3>
-        <img src="/assets/${e.img}" alt="${e.nombre}">
-        <ul>
-            <li>Precio unitario: $${e.precio}</li>
-            <li>Marca: ${e.marca}</li>
-            <li>Material: ${e.material}</li>
-        </ul>
-        `;
+        creaDiv.classList.add('prodMain__elemento', 'col', 'mb-5');
+        creaDiv.innerHTML= 
+        `<div class="card h-100">
+                <!-- <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div> -->
+                <img class="card-img-top" src="/assets/${e.img}" alt="${e.nombre}" />
+                <div class="card-body p-4">
+                    <div class="text-center">
+                        <h5 class="fw-bolder caps">${e.nombre} ${e.peso} kg</h5>
+                        <span>$${e.precio}</span>
+                    </div>
+                </div>
+                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Agregar al carrito</a></div>
+                </div>
+            </div>
+        </div>
+        `;                    
         prodMain.append(creaDiv);
     })
 }
 
-home.addEventListener('click', (event) =>{
-event.preventDefault()
 listarProductos(productos)
-})
+
 
 qProd.forEach((e) => e.addEventListener('click', (event) => {
     event.preventDefault()

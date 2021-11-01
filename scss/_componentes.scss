@@ -29,25 +29,14 @@
                 transition: border-color 0.2s;
             }
         }
-
-        // padding: .5em 1em;
-        // border-radius: .5em;
-        // &:hover{
-        //     background-color:$layer3 ;
-        //     box-shadow: 0 0 .5em $primLight;
-        //     color: $primario;
-        // }
     }
 }
 
 
 .indHero {
-    background-color: $layer2;
-    border-radius: 1em;
     display: flex;
     justify-content: center;
     background-image: url(../assets/fondo.png);
-
     img {
         padding: 1em;
     }
@@ -87,16 +76,18 @@
 /////////////////////////////////////
 
 .prodMain__elemento{
-    padding: 1em;
-    background-color: $layer2;
-    border-radius: 1em;
-    text-align: center;
+    // padding: 1em;
+    // background-color: $layer2;
+    // border-radius: 1em;
+    // text-align: center;
+    // border: 2px solid $primario;
+        color: black;
     .caps{
         text-transform: capitalize;
     }
-    img{
-        border-radius: .5em;
-        @include wdt-hgt(50%,auto);
-        margin: .5em;
-    }
+    // img{
+    //     border-radius: .5em;
+    //     @include wdt-hgt(50%,auto);
+    //     margin: .5em;
+    // }
 }
