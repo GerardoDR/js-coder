@@ -9,7 +9,7 @@ const productos = [];
 class Producto {
 
     constructor(id, nombre, peso, precio, marca, material, stock,img) {
-        this.id = id,
+            this.id = id,
             this.nombre = nombre,
             this.peso = peso,
             this.precio = precio,
@@ -123,7 +123,7 @@ const listarProductos = (arrayFiltrado) => {
                 </div>
             </div>
         </div>
-        `;                    
+        `;           
         prodMain.append(creaDiv);
     })
 }
@@ -146,10 +146,9 @@ qProd.forEach((e) => e.addEventListener('click', (event) => {
     }else{
         prodMain.innerHTML="";
         const div = document.createElement('div');
-        div.classList.add('prodMain__elemento');
+        div.classList.add('prodMain__elemento', 'col', 'mb-2');
         div.id = 'proximamente'
         div.innerHTML= "<h2>PROXIMAMENTE!</h2>";
         prodMain.append(div)
     };
-
 }));
