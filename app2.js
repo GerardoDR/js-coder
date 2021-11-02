@@ -78,7 +78,7 @@ const listarProductos = (arrayFiltrado) => {
                     </div>
                 </div>
                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div class="text-center"><a id="${e.id}" class="btn btn-outline-dark mt-auto">Agregar al carrito</a></div>
+                    <div class="text-center"><a id="prod${e.id}" class="btn btn-outline-dark mt-auto">Agregar al carrito</a></div>
                 </div>
             </div>
         </div>
@@ -86,9 +86,9 @@ const listarProductos = (arrayFiltrado) => {
         
         prodMain.append(creaDiv);
 
-        const botonAgregar = document.getElementById(e.id);
+        const botonAgregar = document.querySelector(`#prod${e.id}`);
 
-        botonAgregar.addEventListener('click', (ev) => {
+        botonAgregar.addEventListener('click', () => {
             agregarAlCarrito(e.id)
         });
 
@@ -126,15 +126,21 @@ qProd.forEach((e) => e.addEventListener('click', (event) => {
 
 const actualizarCarrito = () => {
     contCarrito.innerHTML = ""
-    carrito.forEach((prod) => {
+    carrito.forEach((prod,i) => {
     const li = document.createElement('li')
     li.className = "d-flex flex-row justify-content-between"
     li.innerHTML = `
     <h5 class="fw-bolder caps">${prod.nombre} ${prod.peso} kg</h5>
     <span>Precio: $${prod.precio}</span>
-    <button onclick="eliminarDelCarrito(${prod.id})" class="boton-eliminar">borrar</button>
+    <button id="carr${i}" class="boton-eliminar">borrar</button>
     `
     contCarrito.append(li)
+
+    const botonEliminar = document.querySelector(`#carr${i}`);
+
+        botonEliminar.addEventListener('click', () => {
+            eliminarDelCarrito(i)
+        });
     })
     console.log(carrito)
     cantidadEnCarrito.innerText = carrito.length
@@ -147,6 +153,14 @@ const agregarAlCarrito = (id) => {
     carrito.push(prod)
     actualizarCarrito()
 };
+
+const eliminarDelCarrito = (i) => {
+    carrito.splice(i, 1)
+    actualizarCarrito()
+    if (carrito.length == 0){
+        contCarrito.innerHTML = `<h5>Carrito vacío</h5>`
+    }
+}
 
 botonVaciar.addEventListener('click', () => {
     carrito.length = 0
