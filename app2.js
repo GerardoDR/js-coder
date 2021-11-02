@@ -4,6 +4,7 @@ let producto;
 let peso;
 let cantidad;
 const productos = [];
+const carrito = [];
 
 /////////////////////////////////CLASS Y CREACIÓN DE OBJETOS
 class Producto {
@@ -44,59 +45,17 @@ productos.push(new Producto(4, "mancuerna", 5, 1600, "Quuz", "acero", 30,'mancue
 productos.push(new Producto(5, "mancuerna", 7, 2200, "Quuz", "acero", 30, 'mancuerna.jpg'));
 productos.push(new Producto(6, "mancuerna", 10, 3000, "Quuz", "acero", 30, 'mancuerna.jpg'));
 
-///////////////////////////FUNCIONES
-
-const desc = (cantidad) => {
-    if (cantidad >= 5 && cantidad < 10) {
-        console.log('Se aplica 5% de descuento');
-        return 5;
-    } else if (cantidad >= 10) {
-        console.log('Se aplica 10% de descuento');
-        return 10;
-    } else {
-        console.log("descuento mayorista no aplicable");
-        return 0;
-    }
-}
-
-const stockPrecio = (producto, peso, cantidad) => {
-    let precio;
-    let stock;
-    productos.forEach(element => {
-        if (element.nombre === producto && element.peso === peso) {
-            stock = element.verificarStock(cantidad);
-            if (stock === true) {
-                precio = element.precio;
-                console.log("Stock disponible!");
-            } else if (stock === false) {
-                precio = false;
-                console.log("Stock insuficiente. Solo tenemos " + element.stock + " unidades");
-                alert("Stock insuficiente. Tenemos " + element.stock + " unidades disponibles.");
-            }
-        }
-    })
-    return precio;
-}
-
-//funcion que se introduce en calculo()
-const tot = (precio, descuento) => (precio - (precio * (descuento / 100)));
-
-//devuelve precio final
-const calculo = (precio, descuento, impuesto, cantidad) => {
-    let total = tot(precio, descuento);
-    console.log("precio unitario bruto con descuento = $" + total);
-    total = total * impuesto;
-    console.log("precio unitario con descuento e impuesto = $" + total);
-    total = total * cantidad;
-    console.log("precio final= $" + total.toFixed(2) + " ==> " + cantidad + " unidad/es.");
-    return total;
-}
 
 /////////////////////////////////
 
 const qProd = document.querySelectorAll('.qProd');
 const prodMain = document.querySelector('.prodMain');
 const home = document.querySelector('.home');
+const contCarrito = document.querySelector('.contCarrito')
+const cantidadEnCarrito = document.querySelector('.cantidadEnCarrito')
+const total = document.querySelector('.total')
+const botonVaciar = document.querySelector('.botonVaciar')
+
 
 const filtro = (arr,nombre) => {
     const filtrado = arr.filter((prod) => prod.nombre === nombre);
@@ -119,27 +78,39 @@ const listarProductos = (arrayFiltrado) => {
                     </div>
                 </div>
                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Agregar al carrito</a></div>
+                    <div class="text-center"><a id="${e.id}" class="btn btn-outline-dark mt-auto">Agregar al carrito</a></div>
                 </div>
             </div>
         </div>
-        `;           
+        `;
+        
         prodMain.append(creaDiv);
+
+        const botonAgregar = document.getElementById(e.id);
+
+        botonAgregar.addEventListener('click', (ev) => {
+            agregarAlCarrito(e.id)
+        });
+
+        
+
     })
 }
 
-listarProductos(productos)
+//LLAMADO INICIAL DE LISTAR PRODUCTOS
+listarProductos(productos);
+
 
 
 qProd.forEach((e) => e.addEventListener('click', (event) => {
-    event.preventDefault()
+    event.preventDefault();
     if (e.className.includes('barra')){
         const filtrado = filtro(productos,'barra');
         console.log(filtrado)
         const div = listarProductos(filtrado);
     }else if(e.className.includes('disco')){
         const filtrado = filtro(productos,'disco');
-        const div = listarProductos(filtrado)
+        const div = listarProductos(filtrado);
     }else if(e.className.includes('mancuerna')){
         const filtrado = filtro(productos,'mancuerna');
         const div = listarProductos(filtrado);
@@ -147,8 +118,38 @@ qProd.forEach((e) => e.addEventListener('click', (event) => {
         prodMain.innerHTML="";
         const div = document.createElement('div');
         div.classList.add('prodMain__elemento', 'col', 'mb-2');
-        div.id = 'proximamente'
-        div.innerHTML= "<h2>PROXIMAMENTE!</h2>";
-        prodMain.append(div)
+        div.id = 'proximamente';
+        div.innerHTML= "<h5>Proximamente</h5>";
+        prodMain.append(div);
     };
 }));
+
+const actualizarCarrito = () => {
+    contCarrito.innerHTML = ""
+    carrito.forEach((prod) => {
+    const li = document.createElement('li')
+    li.className = "d-flex flex-row justify-content-between"
+    li.innerHTML = `
+    <h5 class="fw-bolder caps">${prod.nombre} ${prod.peso} kg</h5>
+    <span>Precio: $${prod.precio}</span>
+    <button onclick="eliminarDelCarrito(${prod.id})" class="boton-eliminar">borrar</button>
+    `
+    contCarrito.append(li)
+    })
+    console.log(carrito)
+    cantidadEnCarrito.innerText = carrito.length
+    const pTotal= carrito.reduce((acc, carr) => acc + carr.precio,0)
+    total.innerText = `$${pTotal}`
+}
+
+const agregarAlCarrito = (id) => {
+    const prod = productos.find( (prod) => prod.id === id)
+    carrito.push(prod)
+    actualizarCarrito()
+};
+
+botonVaciar.addEventListener('click', () => {
+    carrito.length = 0
+    actualizarCarrito()
+    contCarrito.innerHTML = `<h5>Carrito vacío</h5>`
+})

@@ -1,67 +1,17 @@
-.nav {
-    ul {
-        background-color: $layer2;
-        border-radius: 1em;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-        flex-wrap: nowrap;
-        color: $primLight;
-        align-items: center;
-
-        img {
-            @include wdt-hgt(3.5rem, auto);
-            padding-top: .2em;
-        }
-
-        a {
-            display: inline-block;
-            padding: 0.3em .3em;
-            margin: .2em 0 .2em 0;
-            border: 0.16em solid rgba(255, 255, 255, 0);
-            border-radius: .5em;
-            color: $primLight;
-            text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-
-            &:hover {
-                background-color: $layer3;
-                border-color: $primDark;
-                transition: border-color 0.2s;
-            }
-        }
-    }
-}
-
 
 .indHero {
     display: flex;
     justify-content: center;
     background-image: url(../assets/fondo.png);
     height: 45vh;
-    // img {
-    //     height: 50%;
-    //     width: 50%;
-    //     padding: 1em;
-    // }
+
 }
 
 .prodMain__elemento{
-    // // padding: 1em;
-    // background-color: $layer2;
-    // border-radius: 1em;
-    // border: 2px solid $primario;
         color: black;
-        // padding-left: 0;
-        // padding-right: 0;
-        // margin: .5em;
     .caps{
         text-transform: capitalize;
     }
-    // img{
-    //     border-radius: .5em;
-    //     @include wdt-hgt(50%,auto);
-    //     margin: .5em;
-    // }
 }
 
 #proximamente{
@@ -73,35 +23,36 @@
     border: 2px solid $primario;
     color: #fff;
 }
-////////////////////////////////////////////
-// a.boton {
-//     background-color: $layer2;
-//     display: inline-block;
-//     padding: 0.3em 1.2em;
-//     margin: 1em 0.1em 1em 0;
-//     border: 0.16em solid rgba(255, 255, 255, 0);
-//     border-radius: 2em;
-//     text-decoration: none;
-//     color: white;
-//     text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-//     text-align: center;
-//     font-weight: 300;
 
-//     &:hover {
-//         border-color: $primDark;
-//         transition: border-color 0.2s;
-//     }
-// }
+#modalCarrito{
+    // h5{
+    //     display: inline-block;
+    // }
+    .modal-content{
+    background-color: $layer2;
+    
+    }
+    .modal-header{
+        border-color: $primario;
+    }
 
-// .indProd {
-//     display: flex;
-//     // justify-content: space-between;
-//     flex-direction: column;
-//     text-align: center;
-
-//     p {
-//         margin: .4em;
-//         font-size: 1.3em;
-//     }
-// }
-/////////////////////////////////////
+    .modal-footer{
+        border-color: $primario;
+        button {
+            display: inline-block;
+            background-color: $layer3;
+            padding: 0.3em;
+            margin: .2em;
+            border: 0.16em solid rgba(255, 255, 255, 0);
+            border-radius: .2em;
+            color: $primLight;
+            text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
+        
+            &:hover {
+                background-color: $layer4;
+                border-color: $primDark;
+                transition: border-color 0.2s;
+            }
+        }
+    }
+}
