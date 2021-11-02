@@ -69,7 +69,7 @@ const listarProductos = (arrayFiltrado) => {
         creaDiv.classList.add('prodMain__elemento', 'col', 'mb-5');
         creaDiv.innerHTML =
             `<div class="card h-100">
-                <img class="card-img-top" src="/assets/${e.img}" alt="${e.nombre}" />
+                <img class="card-img-top" src="./assets/${e.img}" alt="${e.nombre}" />
                 <div class="card-body p-4">
                     <div class="text-center">
                         <h5 class="fw-bolder caps">${e.nombre} ${e.peso} kg</h5>
