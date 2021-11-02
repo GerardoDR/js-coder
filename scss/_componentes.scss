@@ -1,4 +1,3 @@
-
 .indHero {
     display: flex;
     justify-content: center;
@@ -7,14 +6,15 @@
 
 }
 
-.prodMain__elemento{
-        color: black;
-    .caps{
+.prodMain__elemento {
+    color: black;
+
+    .caps {
         text-transform: capitalize;
     }
 }
 
-#proximamente{
+#proximamente {
     padding: 1em;
     background-color: $layer2;
     font-size: .3em;
@@ -24,20 +24,24 @@
     color: #fff;
 }
 
-#modalCarrito{
-    // h5{
-    //     display: inline-block;
-    // }
-    .modal-content{
-    background-color: $layer2;
-    
+#modalCarrito {
+
+    .modal-content {
+        background-color: $layer2;
+        color: #fff;
+
+        .nomProd {
+            font-size: 1.6em;
+        }
     }
-    .modal-header{
+
+    .modal-header {
         border-color: $primario;
     }
 
-    .modal-footer{
+    .modal-footer {
         border-color: $primario;
+
         button {
             display: inline-block;
             background-color: $layer3;
@@ -47,7 +51,7 @@
             border-radius: .2em;
             color: $primLight;
             text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
-        
+
             &:hover {
                 background-color: $layer4;
                 border-color: $primDark;

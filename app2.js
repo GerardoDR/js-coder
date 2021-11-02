@@ -9,8 +9,8 @@ const carrito = [];
 /////////////////////////////////CLASS Y CREACIÓN DE OBJETOS
 class Producto {
 
-    constructor(id, nombre, peso, precio, marca, material, stock,img) {
-            this.id = id,
+    constructor(id, nombre, peso, precio, marca, material, stock, img) {
+        this.id = id,
             this.nombre = nombre,
             this.peso = peso,
             this.precio = precio,
@@ -37,11 +37,11 @@ class Producto {
     }
 }
 
-productos.push(new Producto(0, "barra", 15, 16000, "Quuz", "acero", 30,'barra.jpg'));
-productos.push(new Producto(1, "barra", 20, 19000, "Quuz", "acero", 30,'barra.jpg'));
-productos.push(new Producto(2, "disco", 5, 2800, "Quuz", "caucho", 60,'disco.jpg'));
-productos.push(new Producto(3, "disco", 10, 5800, "Quuz", "caucho", 60,'disco.jpg'));
-productos.push(new Producto(4, "mancuerna", 5, 1600, "Quuz", "acero", 30,'mancuerna.jpg'));
+productos.push(new Producto(0, "barra", 15, 16000, "Quuz", "acero", 30, 'barra.jpg'));
+productos.push(new Producto(1, "barra", 20, 19000, "Quuz", "acero", 30, 'barra.jpg'));
+productos.push(new Producto(2, "disco", 5, 2800, "Quuz", "caucho", 60, 'disco.jpg'));
+productos.push(new Producto(3, "disco", 10, 5800, "Quuz", "caucho", 60, 'disco.jpg'));
+productos.push(new Producto(4, "mancuerna", 5, 1600, "Quuz", "acero", 30, 'mancuerna.jpg'));
 productos.push(new Producto(5, "mancuerna", 7, 2200, "Quuz", "acero", 30, 'mancuerna.jpg'));
 productos.push(new Producto(6, "mancuerna", 10, 3000, "Quuz", "acero", 30, 'mancuerna.jpg'));
 
@@ -57,18 +57,18 @@ const total = document.querySelector('.total')
 const botonVaciar = document.querySelector('.botonVaciar')
 
 
-const filtro = (arr,nombre) => {
+const filtro = (arr, nombre) => {
     const filtrado = arr.filter((prod) => prod.nombre === nombre);
     return filtrado;
 }
 
 const listarProductos = (arrayFiltrado) => {
-    prodMain.innerHTML="";
+    prodMain.innerHTML = "";
     arrayFiltrado.forEach((e) => {
         const creaDiv = document.createElement('div');
         creaDiv.classList.add('prodMain__elemento', 'col', 'mb-5');
-        creaDiv.innerHTML= 
-        `<div class="card h-100">
+        creaDiv.innerHTML =
+            `<div class="card h-100">
                 <!-- <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div> -->
                 <img class="card-img-top" src="/assets/${e.img}" alt="${e.nombre}" />
                 <div class="card-body p-4">
@@ -83,7 +83,7 @@ const listarProductos = (arrayFiltrado) => {
             </div>
         </div>
         `;
-        
+
         prodMain.append(creaDiv);
 
         const botonAgregar = document.querySelector(`#prod${e.id}`);
@@ -92,7 +92,7 @@ const listarProductos = (arrayFiltrado) => {
             agregarAlCarrito(e.id)
         });
 
-        
+
 
     })
 }
@@ -104,39 +104,39 @@ listarProductos(productos);
 
 qProd.forEach((e) => e.addEventListener('click', (event) => {
     event.preventDefault();
-    if (e.className.includes('barra')){
-        const filtrado = filtro(productos,'barra');
+    if (e.className.includes('barra')) {
+        const filtrado = filtro(productos, 'barra');
         console.log(filtrado)
         const div = listarProductos(filtrado);
-    }else if(e.className.includes('disco')){
-        const filtrado = filtro(productos,'disco');
+    } else if (e.className.includes('disco')) {
+        const filtrado = filtro(productos, 'disco');
         const div = listarProductos(filtrado);
-    }else if(e.className.includes('mancuerna')){
-        const filtrado = filtro(productos,'mancuerna');
+    } else if (e.className.includes('mancuerna')) {
+        const filtrado = filtro(productos, 'mancuerna');
         const div = listarProductos(filtrado);
-    }else{
-        prodMain.innerHTML="";
+    } else {
+        prodMain.innerHTML = "";
         const div = document.createElement('div');
         div.classList.add('prodMain__elemento', 'col', 'mb-2');
         div.id = 'proximamente';
-        div.innerHTML= "<h5>Proximamente</h5>";
+        div.innerHTML = "<h5>Proximamente</h5>";
         prodMain.append(div);
     };
 }));
 
 const actualizarCarrito = () => {
     contCarrito.innerHTML = ""
-    carrito.forEach((prod,i) => {
-    const li = document.createElement('li')
-    li.className = "d-flex flex-row justify-content-between"
-    li.innerHTML = `
-    <h5 class="fw-bolder caps">${prod.nombre} ${prod.peso} kg</h5>
+    carrito.forEach((prod, i) => {
+        const li = document.createElement('li')
+        li.className = "d-flex flex-row align-items-center justify-content-between"
+        li.innerHTML = `
+    <span class="caps nomProd">${prod.nombre} ${prod.peso} kg</span>
     <span>Precio: $${prod.precio}</span>
-    <button id="carr${i}" class="boton-eliminar">borrar</button>
+    <button id="carr${i}" class="btn text-danger"><i class="bi bi-x-circle"></i></button>
     `
-    contCarrito.append(li)
+        contCarrito.append(li)
 
-    const botonEliminar = document.querySelector(`#carr${i}`);
+        const botonEliminar = document.querySelector(`#carr${i}`);
 
         botonEliminar.addEventListener('click', () => {
             eliminarDelCarrito(i)
@@ -144,12 +144,12 @@ const actualizarCarrito = () => {
     })
     console.log(carrito)
     cantidadEnCarrito.innerText = carrito.length
-    const pTotal= carrito.reduce((acc, carr) => acc + carr.precio,0)
+    const pTotal = carrito.reduce((acc, carr) => acc + carr.precio, 0)
     total.innerText = `$${pTotal}`
 }
 
 const agregarAlCarrito = (id) => {
-    const prod = productos.find( (prod) => prod.id === id)
+    const prod = productos.find((prod) => prod.id === id)
     carrito.push(prod)
     actualizarCarrito()
 };
@@ -157,7 +157,7 @@ const agregarAlCarrito = (id) => {
 const eliminarDelCarrito = (i) => {
     carrito.splice(i, 1)
     actualizarCarrito()
-    if (carrito.length == 0){
+    if (carrito.length == 0) {
         contCarrito.innerHTML = `<h5>Carrito vacío</h5>`
     }
 }

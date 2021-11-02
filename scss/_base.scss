@@ -28,6 +28,6 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: black;
     color: white;
-    @include wdt-hgt(100%,100%);
+    @include wdt-hgt(100%, 100%);
     // overflow: hidden;
 }
