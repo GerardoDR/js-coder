@@ -2,22 +2,27 @@
     display: flex;
     justify-content: center;
     background-image: url(../assets/fondo.png);
-    height: 45vh;
+    height: 30vh;
 
+}
+
+.navbar-brand{
+    margin-right: 0;
 }
 
 .prodMain__elemento {
     color: black;
+    @extend .caps
+}
 
-    .caps {
-        text-transform: capitalize;
-    }
+.caps {
+    text-transform: capitalize;
 }
 
 #proximamente {
     padding: 1em;
     background-color: $layer2;
-    font-size: .3em;
+    font-size: 1.5em;
     border-radius: 1em;
     text-align: center;
     border: 2px solid $primario;
@@ -29,9 +34,11 @@
     .modal-content {
         background-color: $layer2;
         color: #fff;
-
+        ul{
+            margin: 0;
+        }
         .nomProd {
-            font-size: 1.6em;
+            font-size: 1em;
         }
     }
 
@@ -49,11 +56,11 @@
             margin: .2em;
             border: 0.16em solid rgba(255, 255, 255, 0);
             border-radius: .2em;
-            color: $primLight;
+            color: $primario;
             text-shadow: 0 0.04em 0.04em rgba(0, 0, 0, 0.35);
 
             &:hover {
-                background-color: $layer4;
+                background-color: #fff;
                 border-color: $primDark;
                 transition: border-color 0.2s;
             }
