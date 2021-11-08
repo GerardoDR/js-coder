@@ -51,10 +51,13 @@ productos.push(new Producto(6, "mancuerna", 10, 3000, "Quuz", "acero", 30, 'manc
 const qProd = document.querySelectorAll('.qProd');
 const prodMain = document.querySelector('.prodMain');
 const home = document.querySelector('.home');
-const contCarrito = document.querySelector('.contCarrito')
-const cantidadEnCarrito = document.querySelector('.cantidadEnCarrito')
-const total = document.querySelector('.total')
-const botonVaciar = document.querySelector('.botonVaciar')
+const contCarrito = document.querySelector('.contCarrito');
+const cantidadEnCarrito = document.querySelector('.cantidadEnCarrito');
+const total = document.querySelector('.total');
+const botonVaciar = document.querySelector('.botonVaciar');
+
+sessionStorage.setItem('cantidad', 1);
+
 
 
 const filtro = (arr, nombre) => {
@@ -66,6 +69,7 @@ const listarProductos = (arrayFiltrado) => {
     prodMain.innerHTML = "";
     arrayFiltrado.forEach((e) => {
         const creaDiv = document.createElement('div');
+        const numItems = 1
         creaDiv.classList.add('prodMain__elemento', 'col', 'mb-5');
         creaDiv.innerHTML =
             `<div class="card h-100">
@@ -77,7 +81,16 @@ const listarProductos = (arrayFiltrado) => {
                     </div>
                 </div>
                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div class="text-center"><a id="prod${e.id}" class="btn btn-outline-dark mt-auto">Agregar al carrito</a></div>
+                    <div class="text-center d-flex">
+                        <a id="prod${e.id}" class="btn btn-outline-dark m-auto">
+                        <i class="bi-cart-fill me-1">
+                        </i>Agregar al carrito</a>
+                        <div class="d-flex flex-column botonesQ">
+                            <button class="cantidad mas btn btn-outline-dark rounded-pill">+</button>
+                            <span class="badge bg-dark text-white rounded-pill">${numItems}</span>
+                            <button class="cantidad menos btn btn-outline-dark rounded-pill">-</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         `;
@@ -98,6 +111,11 @@ const listarProductos = (arrayFiltrado) => {
 //LLAMADO INICIAL DE LISTAR PRODUCTOS
 listarProductos(productos);
 
+//////BOTONES DE CANT PRODUCTOS
+const botonMas = document.querySelectorAll('.mas');
+const botonMenos = document.querySelectorAll('.menos');
+console.log(botonMenos)
+/////////////
 
 
 qProd.forEach((e) => e.addEventListener('click', (event) => {
@@ -131,7 +149,7 @@ const actualizarCarrito = () => {
     <span class="caps nomProd">${prod.nombre} ${prod.peso}kg.</span>
     <span>Precio: $${prod.precio}</span>
     <button id="carr${i}" class="btn text-danger"><i class="bi bi-x-circle"></i></button>
-    `
+    `;
         contCarrito.append(li)
         const botonEliminar = document.querySelector(`#carr${i}`);
         botonEliminar.addEventListener('click', () => {
@@ -150,15 +168,37 @@ const agregarAlCarrito = (id) => {
 };
 
 const eliminarDelCarrito = (i) => {
-    carrito.splice(i, 1)
-    actualizarCarrito()
+    carrito.splice(i, 1);
+    actualizarCarrito();
     if (carrito.length == 0) {
         contCarrito.innerHTML = `<span class="caps nomProd">Carrito vacío</span>`
-    }
+    };
 }
 
 botonVaciar.addEventListener('click', () => {
-    carrito.length = 0
-    actualizarCarrito()
-    contCarrito.innerHTML = `<span class="caps nomProd">Carrito vacío</span>`
+    carrito.length = 0;
+    actualizarCarrito();
+    contCarrito.innerHTML = `<span class="caps nomProd">Carrito vacío</span>`;
+})
+
+botonMas.forEach( (b) => {
+    b.addEventListener('click', () => {
+        const contador = document.querySelector('.botonesQ span')
+        console.log(contador)
+        let contadorN = parseInt(contador.innerText);
+        contadorN++
+        contador.innerText = `${contadorN}`
+    })
+})
+
+botonMenos.forEach( (b) => {
+    b.addEventListener('click', () => {
+        const contador = document.querySelector('.botonesQ span')
+        console.log(contador)
+        let contadorN = parseInt(contador.innerText)
+        if (contadorN > 0) {
+            contadorN--
+            contador.innerText = `${contadorN}`
+        }
+    })
 })
