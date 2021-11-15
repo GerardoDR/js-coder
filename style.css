@@ -1,0 +1,20 @@
+body{
+    height: 100vh;
+}
+.caps{
+    text-transform: capitalize ;
+}
+#imagen{
+    display: flex;
+    margin:40vh;
+    align-items: center;
+    justify-content: center;
+    
+}
+#imagen button{
+    padding: 1em 2em;
+}
+
+.hola{
+    background-image: url(./state-of-horror-gq.jpg);
+}
