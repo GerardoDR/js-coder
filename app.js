@@ -32,20 +32,16 @@ $('#imagen button').on('mouseover', () => {
 // .then((json) => $('#placeholders').append((json)));
 
 $('#placeholders').animate({
-    //valores de destino
-    'width': '1px',
-    'height': '1px',
-    'border-radius': '50%'
-}, 2000, () => {
-    $('#placeholders').animate({
-        'display': 'none'
-    },0, () => {
-        $('#placeholders').text('prueba animaciones anidadas')
-        $('#placeholders').animate({
-            'width': '500px',
-            'height': '50px',
-            'border-radius': '5px',
-        },500)
-        $('#placeholders').css('background-color', 'rgb(43, 231, 43)')
-    })
-})
+        //valores de destino
+        'width': '1px',
+        'height': '1px',
+        'border-radius': '50%'
+    }, 2000)
+    .animate({
+        'width': '500px',
+        'height': '50px',
+        'border-radius': '5px',
+    }, 1000, () => {
+        //asignación de otras propiedades encadenada con la última animación   
+    $('#placeholders').text('prueba animaciones anidadas')
+    .css('background-color', 'rgb(43, 231, 43)')})
