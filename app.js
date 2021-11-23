@@ -3,48 +3,18 @@
 let producto;
 let peso;
 let cantidad;
-const productos = [];
+let productos = [];
 const carrito = [];
 
 /////////////////////////////////CLASS Y CREACIÓN DE OBJETOS
-class Producto {
 
-    constructor(id, nombre, peso, precio, marca, material, stock, img) {
-        this.id = id,
-            this.nombre = nombre,
-            this.peso = peso,
-            this.precio = precio,
-            this.marca = marca,
-            this.material = material,
-            this.stock = stock,
-            this.img = img
-    }
-    verificarStock = (cantDemandada) => {
-        if (this.stock >= cantDemandada) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    restarStock = (cantDemandada) => {
-        cantDemandada = parseInt(cantDemandada);
-        if (this.stock >= cantDemandada) {
-            this.stock -= cantDemandada;
-        } else {
-            alert("stock insuficiente");
-        }
-    }
+const cargarProductos = async () => {
+    const respuesta = await fetch('./productos.json');
+    data = await respuesta.json();
+    productos = data
+    console.log(data)    
+    listarProductos(productos);
 }
-
-productos.push(new Producto(0, "barra", 15, 16000, "Quuz", "acero", 30, 'barra.jpg'));
-productos.push(new Producto(1, "barra", 20, 19000, "Quuz", "acero", 30, 'barra.jpg'));
-productos.push(new Producto(2, "disco", 5, 2800, "Quuz", "caucho", 60, 'disco.jpg'));
-productos.push(new Producto(3, "disco", 10, 5800, "Quuz", "caucho", 60, 'disco.jpg'));
-productos.push(new Producto(4, "mancuerna", 5, 1600, "Quuz", "acero", 30, 'mancuerna.jpg'));
-productos.push(new Producto(5, "mancuerna", 7, 2200, "Quuz", "acero", 30, 'mancuerna.jpg'));
-productos.push(new Producto(6, "mancuerna", 10, 3000, "Quuz", "acero", 30, 'mancuerna.jpg'));
-
 
 /////////////////////////////////
 
@@ -130,7 +100,8 @@ const listarProductos = (arrayFiltrado) => {
 }
 
 //LLAMADO INICIAL DE LISTAR PRODUCTOS
-listarProductos(productos);
+// listarProductos(productos);
+cargarProductos();
 
 // //////BOTONES DE CANT PRODUCTOS
 // const botonMas = document.querySelectorAll('.mas');
@@ -151,6 +122,9 @@ qProd.forEach((e) => e.addEventListener('click', (event) => {
     } else if (e.className.includes('mancuerna')) {
         const filtrado = filtro(productos, 'mancuerna');
         const div = listarProductos(filtrado);
+    }else if (e.className.includes('accesorio')) {
+        const filtrado = filtro(productos, 'colchoneta');
+        listarProductos(filtrado);
     } else {
         prodMain.innerHTML = "";
         const div = document.createElement('div');
