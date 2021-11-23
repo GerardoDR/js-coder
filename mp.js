@@ -32,7 +32,7 @@ const finalizarCompra = async () => {
     })
     const data = await resp.json()
 
-    window.location.replace(data.init_point)
+    window.location.assign(data.init_point)
 }
 
 botonComprar.addEventListener('click', () => {
