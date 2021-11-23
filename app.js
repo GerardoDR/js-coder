@@ -1,97 +1,71 @@
 /////////////////////////////////VARIABLES
 
 let producto;
-let peso;
 let cantidad;
-const productos = [];
+let productos = [];
 const carrito = [];
+let precioTotal = 0;
 
 /////////////////////////////////CLASS Y CREACIÓN DE OBJETOS
-class Producto {
 
-    constructor(id, nombre, peso, precio, marca, material, stock, img) {
-        this.id = id,
-            this.nombre = nombre,
-            this.peso = peso,
-            this.precio = precio,
-            this.marca = marca,
-            this.material = material,
-            this.stock = stock,
-            this.img = img
-    }
-    verificarStock = (cantDemandada) => {
-        if (this.stock >= cantDemandada) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    restarStock = (cantDemandada) => {
-        cantDemandada = parseInt(cantDemandada);
-        if (this.stock >= cantDemandada) {
-            this.stock -= cantDemandada;
-        } else {
-            alert("stock insuficiente");
-        }
-    }
+const cargarProductos = async () => {
+    const respuesta = await fetch('./productos.json');
+    data = await respuesta.json();
+    productos = data
+    listarProductos(productos);
 }
 
-productos.push(new Producto(0, "barra", 15, 16000, "Quuz", "acero", 30, 'barra.jpg'));
-productos.push(new Producto(1, "barra", 20, 19000, "Quuz", "acero", 30, 'barra.jpg'));
-productos.push(new Producto(2, "disco", 5, 2800, "Quuz", "caucho", 60, 'disco.jpg'));
-productos.push(new Producto(3, "disco", 10, 5800, "Quuz", "caucho", 60, 'disco.jpg'));
-productos.push(new Producto(4, "mancuerna", 5, 1600, "Quuz", "acero", 30, 'mancuerna.jpg'));
-productos.push(new Producto(5, "mancuerna", 7, 2200, "Quuz", "acero", 30, 'mancuerna.jpg'));
-productos.push(new Producto(6, "mancuerna", 10, 3000, "Quuz", "acero", 30, 'mancuerna.jpg'));
-
-
-/////////////////////////////////
+///////////////////////////////// QUERIES SOBRE DOCUMENT
 
 const qProd = document.querySelectorAll('.qProd');
 const prodMain = document.querySelector('.prodMain');
 const home = document.querySelector('.home');
 const contCarrito = document.querySelector('.contCarrito');
 const cantidadEnCarrito = document.querySelector('.cantidadEnCarrito');
-const total = document.querySelector('.total');
+const h5Total = document.querySelector('.total');
 const botonVaciar = document.querySelector('.botonVaciar');
 
+///////////////////////////////// FUNCIONES
 
-const filtro = (arr, nombre) => {
-    const filtrado = arr.filter((prod) => prod.nombre === nombre);
-    return filtrado;
-}
+const filtro = (arr, nombre) => arr.filter((prod) => prod.nombre.includes(nombre));
 
+////////////// CONTADORES EN TARJETAS
+//RESTA
 const restQ = (e) => {
     const contador = document.querySelector(`#prod${e.id} span`)
     let contadorN = parseInt(contador.innerText)
     if (contadorN > 1) {
         contadorN--
         contador.innerText = `${contadorN}`
+        //GUARDADO TEMPORAL DE LA CANTIDAD SELECCIONADA DEL ITEM
         sessionStorage.setItem(`'cant-${e.nombre}${e.id}'`, `${contador.innerText}`)
     }
 }
+//SUMA
 const sumQ = (e) => {
     const contador = document.querySelector(`#prod${e.id} span`)
     let contadorN = parseInt(contador.innerText);
     contadorN++
     contador.innerText = `${contadorN}`
+    //GUARDADO TEMPORAL DE LA CANTIDAD SELECCIONADA DEL ITEM
     sessionStorage.setItem(`'cant-${e.nombre}${e.id}'`, `${contador.innerText}`)
 }
 
+////////////// RENDERIZADO DEL MAIN
 const listarProductos = (arrayFiltrado) => {
     prodMain.innerHTML = "";
     arrayFiltrado.forEach((e) => {
         const creaDiv = document.createElement('div');
         let numItems = 1
-        sessionStorage.setItem(`'cant-${e.nombre}${e.id}'`,`${numItems}`)
+        //INICIALIZA LA CANTIDAD SELECCIONADA DEL ITEM POR TARJETA
+        sessionStorage.setItem(`'cant-${e.nombre}${e.id}'`, `${numItems}`)
         creaDiv.classList.add('prodMain__elemento', 'col', 'mb-5');
         creaDiv.innerHTML =
             `<div class="card h-100">
-                <img class="card-img-top" src="./assets/${e.img}" alt="${e.nombre}" />
+                <img class="card-img-top p-3" src="./assets/${e.img}" alt="${e.nombre}" />
                 <div class="card-body p-4">
                     <div class="text-center">
-                        <h5 class="fw-bolder caps">${e.nombre} ${e.peso} kg</h5>
+                        <h5 class="fw-bolder caps">${e.nombre}</h5>
                         <span>$${e.precio}</span>
                     </div>
                 </div>
@@ -109,49 +83,49 @@ const listarProductos = (arrayFiltrado) => {
                 </div>
             </div>
         `;
-
+        //APPEND
         prodMain.append(creaDiv);
 
         const botonAgregar = document.querySelector(`#prod${e.id} a`);
-
+        //EVENTO AGREGAR AL CARRITO POR CADA PRODUCTO
         botonAgregar.addEventListener('click', () => {
+            //LLAMADA A FUNCION DE AGREGAR AL CARRITO
             agregarAlCarrito(e)
+            //RESETEA CONTADOR AL AGREGAR A CARRITO
             const contador = document.querySelector(`#prod${e.id} span`)
             contador.innerText = 1
         });
-        
+
+        //EVENTOS PARA LLAMAR A LAS FUNCIONES DE MODIFICACION DE NUMERO DE PRODUCTOS A AGREGAR
         const botonMas = document.querySelector(`#prod${e.id} .mas`)
-        botonMas.addEventListener('click', () => sumQ(e) )
+        botonMas.addEventListener('click', () => sumQ(e))
 
         const botonMenos = document.querySelector(`#prod${e.id} .menos`)
-        botonMenos.addEventListener('click', () => restQ(e) )
+        botonMenos.addEventListener('click', () => restQ(e))
 
     })
 }
 
 //LLAMADO INICIAL DE LISTAR PRODUCTOS
-listarProductos(productos);
+cargarProductos()
 
-// //////BOTONES DE CANT PRODUCTOS
-// const botonMas = document.querySelectorAll('.mas');
-// const botonMenos = document.querySelectorAll('.menos');
-// console.log(botonMenos)
-/////////////
-
-
+////////////// EVENTOS FILTRA BUSQUEDA
 qProd.forEach((e) => e.addEventListener('click', (event) => {
     event.preventDefault();
     if (e.className.includes('barra')) {
         const filtrado = filtro(productos, 'barra');
-        console.log(filtrado)
-        const div = listarProductos(filtrado);
+        listarProductos(filtrado);
     } else if (e.className.includes('disco')) {
         const filtrado = filtro(productos, 'disco');
-        const div = listarProductos(filtrado);
+        listarProductos(filtrado);
     } else if (e.className.includes('mancuerna')) {
         const filtrado = filtro(productos, 'mancuerna');
-        const div = listarProductos(filtrado);
+        listarProductos(filtrado);
+    } else if (e.className.includes('accesorio')) {
+        const filtrado = filtro(productos, 'colchoneta');
+        listarProductos(filtrado);
     } else {
+        //ELSE PARA LOS PRODUCTOS QUE TODAVÍA NO ESTÁN EN EL STOCK
         prodMain.innerHTML = "";
         const div = document.createElement('div');
         div.classList.add('prodMain__elemento', 'col', 'mb-2');
@@ -161,47 +135,123 @@ qProd.forEach((e) => e.addEventListener('click', (event) => {
     };
 }));
 
+////////////// CARRITO
+
+////// TOTAL CARRITO
+
+const funcTotal = () => {
+    const pTotal = carrito.reduce((acc, carr) => acc + (carr.precio * carr.cantidad), 0)
+    h5Total.innerText = `$${pTotal}`
+    return pTotal
+}
+
+////// ACTUALIZAZIÓN DEL CARRITO - AGREGA, ELIMINA INDIVIDUALMENTE Y VACÍA CARRITO
 const actualizarCarrito = () => {
     contCarrito.innerHTML = ""
+    //RENDERIZADO DE CADA ITEM EN LISTA
     carrito.forEach((prod, i) => {
         const li = document.createElement('li')
         li.className = "d-flex flex-row align-items-center justify-content-between"
         li.innerHTML = `
-    <span class="caps nomProd">${prod.nombre} ${prod.peso}kg.</span>
-    <span>Precio: $${prod.precio}</span>
+    <span class="caps nomProd">${prod.nombre}</span>
+    <span class="fst-italic">${prod.cantidad} u.</span>
+    <span>Precio por unidad:</span><strong>$${prod.precio}</strong>
     <button id="carr${i}" class="btn text-danger"><i class="bi bi-x-circle"></i></button>
     `;
+        //APPEND EN CARRITO
         contCarrito.append(li)
+
+        //BOTON ELIMINAR DEL CARRITO
         const botonEliminar = document.querySelector(`#carr${i}`);
         botonEliminar.addEventListener('click', () => {
+            //LLAMADA A ELIMINAR DEL CARRITO
             eliminarDelCarrito(i)
         });
     })
     cantidadEnCarrito.innerText = carrito.length
-    const pTotal = carrito.reduce((acc, carr) => acc + carr.precio, 0)
-    total.innerText = `$${pTotal}`
+    //EL PRECIO TOTAL ES EL PRECIO DEL PRODUCTO POR LA VARIABLE CANTIDAD DEL OBJ EN CARRITO
+    precioTotal = funcTotal()
+    console.log(precioTotal)
+    // const pTotal = carrito.reduce((acc, carr) => acc + (carr.precio * carr.cantidad), 0)
+    // total.innerText = `$${pTotal}`
 }
 
-const agregarAlCarrito = (e) => {
-    const prod = productos.find((prod) => prod.id === e.id)
-    const cantidad = sessionStorage.getItem(`'cant-${e.nombre}${e.id}'`)
-    for(i=0;i<cantidad;i++){
-    carrito.push(prod)
-    actualizarCarrito()
-    }
-    sessionStorage.setItem(`'cant-${e.nombre}${e.id}'`, 1)
-};
+////// FUNCIÓN AGREGAR AL CARRITO
+const agregarAlCarrito = (el) => {
+    
+    //TOMA DE VARIABLE DEL CONTADOR ALMACENADA EN SESSION
+    const cantidad = sessionStorage.getItem(`'cant-${el.nombre}${el.id}'`)
 
+    //TOAST
+    Toastify({
+        text: `Agregó: \n ${el.nombre} por ${cantidad} u.`,
+        duration: 3000,
+        stopOnFocus: false,
+        style: {
+            'text-transform': 'capitalize',
+            padding: "1em",
+            background: "#212121",
+            border: "3px solid #f44336",
+            'border-radius': ".6em",
+            color: "#fff"
+        },
+    }).showToast();
+
+    //BUSCA SI EL ITEM A AGREGAR ESTA YA EN CARRITO
+    let yaEnCarrito = carrito.find((item) => item.id === el.id)
+    //SUMA POR CADA UNIDAD QUE SE AGREGUE, CUANDO EL ITEM YA ESTA EN EL CARRITO
+    if (yaEnCarrito) {
+        for (i = 0; i < cantidad; i++) {
+            yaEnCarrito.cantidad++
+        }
+    } else {
+        //O CREA LA ENTRADA EN EL CARRITO, ESTO ES TEMA DESTRUCTURING DEL OBJ
+        let {
+            id,
+            nombre,
+            precio
+        } = productos.find((item) => item.id === el.id)
+        //EL OBJETO ES UTILIZADO PARA HACER UNA NUEVA ENTRADA EN EL ARRAY DE CARRITO
+        carrito.push({
+            id: id,
+            nombre: nombre,
+            precio: precio,
+            //SE TOMA LA CANTIDAD GUARDADA EN CONTADOR COMO VALOR INICIAL DE CANTIDAD EN CARRITO
+            cantidad: cantidad
+        })
+    }
+    //LLAMADO A LA FUNCION PARA RENDERIZAR CARRITO
+    actualizarCarrito()
+    //RESET DE LA VARIABLE CANTIDAD EN SESSION STORAGE
+    sessionStorage.setItem(`'cant-${el.nombre}${el.id}'`, 1)
+};
+//
 const eliminarDelCarrito = (i) => {
+    //ELIMINA EL ELEMENTO CORRESPONDIENTE AL LUGAR DEL INDICE INGRESADO
     carrito.splice(i, 1);
     actualizarCarrito();
     if (carrito.length == 0) {
+        //SI EL CARRITO QUEDA VACIO LUEGO DE BORRAR EL ULTIMO ITEM APARECE ESTE MENSAJE
         contCarrito.innerHTML = `<span class="caps nomProd">Carrito vacío</span>`
     };
-}
+};
 
+//VACIA EL CARRITO CAMBIANDO SU LENGTH A 0
 botonVaciar.addEventListener('click', () => {
     carrito.length = 0;
     actualizarCarrito();
     contCarrito.innerHTML = `<span class="caps nomProd">Carrito vacío</span>`;
-})
+    Toastify({
+        text: `Vaciaste el carrito`,
+        position: 'left',
+        duration: 3000,
+        stopOnFocus: false,
+        style: {
+            padding: "1em",
+            background: "#212121",
+            border: "3px solid #f44336",
+            'border-radius': ".6em",
+            color: "#fff"
+        },
+    }).showToast();
+});

@@ -1,0 +1,81 @@
+[{
+        "id": 0,
+        "nombre": "barra 15 kg.",
+        "peso": 15,
+        "precio": 16000,
+        "marca": "Quuz",
+        "material": "acero",
+        "stock": 30,
+        "img": "barra.jpg"
+    },
+    {
+        "id": 1,
+        "nombre": "barra 20 kg.",
+        "peso": 20,
+        "precio": 19000,
+        "marca": "Quuz",
+        "material": "acero",
+        "stock": 30,
+        "img": "barra.jpg"
+    },
+    {
+        "id": 2,
+        "nombre": "disco 5 kg.",
+        "peso": 5,
+        "precio": 2800,
+        "marca": "Quuz",
+        "material": "caucho",
+        "stock": 60,
+        "img": "disco.jpg"
+    },
+    {
+        "id": 3,
+        "nombre": "disco 10 kg.",
+        "peso": 10,
+        "precio": 5800,
+        "marca": "Quuz",
+        "material": "caucho",
+        "stock": 60,
+        "img": "disco.jpg"
+    },
+    {
+        "id": 4,
+        "nombre": "mancuerna 5 kg.",
+        "peso": 5,
+        "precio": 1600,
+        "marca": "Quuz",
+        "material": "acero",
+        "stock": 30,
+        "img": "mancuerna.jpg"
+    },
+    {
+        "id": 5,
+        "nombre": "mancuerna 7 kg.",
+        "peso": 7,
+        "precio": 2200,
+        "marca": "Quuz",
+        "material": "acero",
+        "stock": 30,
+        "img": "mancuerna.jpg"
+    },
+    {
+        "id": 6,
+        "nombre": "mancuerna 10 kg.",
+        "peso": 10,
+        "precio": 3000,
+        "marca": "Quuz",
+        "material": "acero",
+        "stock": 30,
+        "img": "mancuerna.jpg"
+    },
+    {
+        "id": 7,
+        "nombre": "colchoneta",
+        "peso": 0,
+        "precio": 1500,
+        "marca": "Quuz",
+        "material": "espuma alta densidad",
+        "stock": 200,
+        "img": "colchoneta.jpg"
+    }
+]
