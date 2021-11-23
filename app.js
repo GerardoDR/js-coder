@@ -1,4 +1,4 @@
-/////////////////////////////////VARIABLES
+///////////////////////////////// VARIABLES
 
 let producto;
 let cantidad;
@@ -6,7 +6,7 @@ let productos = [];
 const carrito = [];
 let precioTotal = 0;
 
-/////////////////////////////////CLASS Y CREACIÓN DE OBJETOS
+///////////////////////////////// CARGA DE PRODUCTOS
 
 const cargarProductos = async () => {
     const respuesta = await fetch('./productos.json');
@@ -27,9 +27,12 @@ const botonVaciar = document.querySelector('.botonVaciar');
 
 ///////////////////////////////// FUNCIONES
 
+////////////// FUNCIÓN FILTRO (nav)
+
 const filtro = (arr, nombre) => arr.filter((prod) => prod.nombre.includes(nombre));
 
 ////////////// CONTADORES EN TARJETAS
+
 //RESTA
 const restQ = (e) => {
     const contador = document.querySelector(`#prod${e.id} span`)
@@ -41,6 +44,7 @@ const restQ = (e) => {
         sessionStorage.setItem(`'cant-${e.nombre}${e.id}'`, `${contador.innerText}`)
     }
 }
+
 //SUMA
 const sumQ = (e) => {
     const contador = document.querySelector(`#prod${e.id} span`)
@@ -178,7 +182,7 @@ const actualizarCarrito = () => {
 
 ////// FUNCIÓN AGREGAR AL CARRITO
 const agregarAlCarrito = (el) => {
-    
+
     //TOMA DE VARIABLE DEL CONTADOR ALMACENADA EN SESSION
     const cantidad = sessionStorage.getItem(`'cant-${el.nombre}${el.id}'`)
 
