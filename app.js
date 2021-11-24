@@ -1,7 +1,7 @@
 ///////////////////////////////// VARIABLES
 
 let producto;
-let cantidad;
+let cantidad = 1;
 let productos = [];
 const carrito = [];
 let precioTotal = 0;
@@ -184,7 +184,7 @@ const actualizarCarrito = () => {
 const agregarAlCarrito = (el) => {
 
     //TOMA DE VARIABLE DEL CONTADOR ALMACENADA EN SESSION
-    const cantidad = sessionStorage.getItem(`'cant-${el.nombre}${el.id}'`)
+    const cantidad = parseInt(sessionStorage.getItem(`'cant-${el.nombre}${el.id}'`))
 
     //TOAST
     Toastify({
@@ -208,6 +208,7 @@ const agregarAlCarrito = (el) => {
         for (i = 0; i < cantidad; i++) {
             yaEnCarrito.cantidad++
         }
+        console.log(typeof cantidad)
     } else {
         //O CREA LA ENTRADA EN EL CARRITO, ESTO ES TEMA DESTRUCTURING DEL OBJ
         let {
