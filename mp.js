@@ -25,8 +25,8 @@ const finalizarCompra = async () => {
         body: JSON.stringify({
             items: carritoToMP,
             back_urls: {
-                success: window.location.href,
-                failure: window.location.href
+              success: window.location.href,
+              failure: window.location.href
             }
         })
     })
