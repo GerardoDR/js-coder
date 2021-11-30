@@ -113,38 +113,6 @@ const listarProductos = (arrayFiltrado) => {
     });
 };
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////AGREGAR LECTURA DE LOCALSTORAGE
-
-//LLAMADO INICIAL DE LISTAR PRODUCTOS
-cargarProductos();
-
-////////////// EVENTOS FILTRA BUSQUEDA
-qProd.forEach((e) =>
-    e.addEventListener("click", (event) => {
-        event.preventDefault();
-        if (e.className.includes("barra")) {
-            const filtrado = filtro(productos, "barra");
-            listarProductos(filtrado);
-        } else if (e.className.includes("disco")) {
-            const filtrado = filtro(productos, "disco");
-            listarProductos(filtrado);
-        } else if (e.className.includes("mancuerna")) {
-            const filtrado = filtro(productos, "mancuerna");
-            listarProductos(filtrado);
-        } else if (e.className.includes("accesorio")) {
-            const filtrado = filtro(productos, "colchoneta");
-            listarProductos(filtrado);
-        } else {
-            //ELSE PARA LOS PRODUCTOS QUE TODAVÍA NO ESTÁN EN EL STOCK
-            prodMain.innerHTML = "";
-            const div = document.createElement("div");
-            div.classList.add("prodMain__elemento", "col", "mb-2");
-            div.id = "proximamente";
-            div.innerHTML = "<span>Proximamente</span>";
-            prodMain.append(div);
-        }
-    })
-);
 
 ////////////// CARRITO
 
@@ -186,8 +154,6 @@ const actualizarCarrito = () => {
     precioTotal = funcTotal();
 };
 
-actualizarCarrito();
-
 ////// FUNCIÓN AGREGAR AL CARRITO
 const agregarAlCarrito = (el) => {
     //TOMA DE VARIABLE DEL CONTADOR ALMACENADA EN SESSION
@@ -222,13 +188,15 @@ const agregarAlCarrito = (el) => {
         let {
             id,
             nombre,
-            precio
+            precio,
+            img
         } = productos.find((item) => item.id === el.id);
         //EL OBJETO ES UTILIZADO PARA HACER UNA NUEVA ENTRADA EN EL ARRAY DE CARRITO
         carrito.push({
             id: id,
             nombre: nombre,
             precio: precio,
+            img: img,
             //SE TOMA LA CANTIDAD GUARDADA EN CONTADOR COMO VALOR INICIAL DE CANTIDAD EN CARRITO
             cantidad: cantidad,
         });
@@ -284,3 +252,37 @@ botonVaciar.addEventListener("click", () => {
         }).showToast();
     }
 });
+
+////////////// EVENTOS FILTRA BUSQUEDA
+qProd.forEach((e) =>
+    e.addEventListener("click", (event) => {
+        event.preventDefault();
+        if (e.className.includes("barra")) {
+            const filtrado = filtro(productos, "barra");
+            listarProductos(filtrado);
+        } else if (e.className.includes("disco")) {
+            const filtrado = filtro(productos, "disco");
+            listarProductos(filtrado);
+        } else if (e.className.includes("mancuerna")) {
+            const filtrado = filtro(productos, "mancuerna");
+            listarProductos(filtrado);
+        } else if (e.className.includes("accesorio")) {
+            const filtrado = filtro(productos, "colchoneta");
+            listarProductos(filtrado);
+        } else {
+            //ELSE PARA LOS PRODUCTOS QUE TODAVÍA NO ESTÁN EN EL STOCK
+            prodMain.innerHTML = "";
+            const div = document.createElement("div");
+            div.classList.add("prodMain__elemento", "col", "mb-2");
+            div.id = "proximamente";
+            div.innerHTML = "<span>Proximamente</span>";
+            prodMain.append(div);
+        }
+    })
+);
+
+//LLAMADO INICIAL DE CARGAR Y LISTAR PRODUCTOS
+cargarProductos();
+
+//LLAMADO INICIAL DE LISTAR PRODUCTOS EN CARRITO
+actualizarCarrito();

@@ -9,7 +9,7 @@ const finalizarCompra = async () => {
         return {
             title: prod.nombre,
             description: `marca ${prod.marca}`,
-            picture_url: `img ${prod.marca}`,
+            picture_url: prod.img,
             category_id: prod.id,
             quantity: prod.cantidad,
             currency_id: "ARS",
