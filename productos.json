@@ -5,6 +5,7 @@
         "precio": 16000,
         "marca": "Quuz",
         "material": "acero",
+        "categoria":["barra"],
         "stock": 30,
         "img": "barra.jpg"
     },
@@ -15,6 +16,7 @@
         "precio": 19000,
         "marca": "Quuz",
         "material": "acero",
+        "categoria":["barra"],
         "stock": 30,
         "img": "barra.jpg"
     },
@@ -25,6 +27,7 @@
         "precio": 2800,
         "marca": "Quuz",
         "material": "caucho",
+        "categoria":["disco"],
         "stock": 60,
         "img": "disco.jpg"
     },
@@ -35,6 +38,7 @@
         "precio": 5800,
         "marca": "Quuz",
         "material": "caucho",
+        "categoria":["disco"],
         "stock": 60,
         "img": "disco.jpg"
     },
@@ -45,6 +49,7 @@
         "precio": 1600,
         "marca": "Quuz",
         "material": "acero",
+        "categoria":["mancuerna","oferta"],
         "stock": 30,
         "img": "mancuerna.jpg"
     },
@@ -55,6 +60,7 @@
         "precio": 2200,
         "marca": "Quuz",
         "material": "acero",
+        "categoria":["mancuerna","oferta"],
         "stock": 30,
         "img": "mancuerna.jpg"
     },
@@ -65,6 +71,7 @@
         "precio": 3000,
         "marca": "Quuz",
         "material": "acero",
+        "categoria":["mancuerna","oferta"],
         "stock": 30,
         "img": "mancuerna.jpg"
     },
@@ -75,6 +82,7 @@
         "precio": 1500,
         "marca": "Quuz",
         "material": "espuma alta densidad",
+        "categoria":["accesorio","oferta"],
         "stock": 200,
         "img": "colchoneta.jpg"
     }

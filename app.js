@@ -6,7 +6,7 @@ let productos = [];
 let precioTotal = 0;
 let carrito = [];
 
-if (localStorage.getItem('carrito')){
+if (localStorage.getItem('carrito')) {
     carrito = JSON.parse(localStorage.getItem('carrito'));
 }
 
@@ -33,8 +33,16 @@ const botonVaciar = document.querySelector(".botonVaciar");
 
 ////////////// FUNCIÓN FILTRO (nav)
 
-const filtro = (arr, nombre) =>
-    arr.filter((prod) => prod.nombre.includes(nombre));
+const filtro = (queryCat) => {
+    const accFilt = productos.filter((el) => {
+        for (let cat of el.categoria) {
+            if (cat == queryCat) {
+                return true
+            }
+        }
+    })
+    return accFilt
+};
 
 ////////////// CONTADORES EN TARJETAS
 
@@ -46,7 +54,7 @@ const restQ = (e) => {
         contadorN--;
         contador.innerText = `${contadorN}`;
         //GUARDADO TEMPORAL DE LA CANTIDAD SELECCIONADA DEL ITEM
-        sessionStorage.setItem(`'cant-${e.nombre}${e.id}'`,`${contador.innerText}`);
+        sessionStorage.setItem(`'cant-${e.nombre}${e.id}'`, `${contador.innerText}`);
     }
 };
 
@@ -65,11 +73,17 @@ const listarProductos = (arrayFiltrado) => {
     prodMain.innerHTML = "";
     arrayFiltrado.forEach((e) => {
         const creaDiv = document.createElement("div");
-        let numItems = 1;
         //INICIALIZA LA CANTIDAD SELECCIONADA DEL ITEM POR TARJETA
+        let numItems = 1;
         sessionStorage.setItem(`'cant-${e.nombre}${e.id}'`, `${numItems}`);
         creaDiv.classList.add("prodMain__elemento", "col", "mb-5");
+        let oferta =""
+        if(e.categoria.find( (cat) => cat == "oferta")){
+            oferta = `<div class="badge bg-dark text-white position-absolute" style="top: 0.7rem; right: 0.7rem">Oferta</div>`
+        }
+
         creaDiv.innerHTML = `<div class="card h-100">
+                ${oferta}
                 <img class="card-img-top p-3" src="./assets/${e.img}" alt="${e.nombre}" />
                 <div class="card-body p-4">
                     <div class="text-center">
@@ -119,35 +133,42 @@ const listarProductos = (arrayFiltrado) => {
 ////// TOTAL CARRITO
 
 const funcTotal = () => {
-    const pTotal = carrito.reduce((acc, carr) => acc + carr.precio * carr.cantidad,0);
+    const pTotal = carrito.reduce((acc, carr) => acc + carr.precio * carr.cantidad, 0);
     h5Total.innerText = `$${pTotal}`;
     return pTotal;
 };
 
 ////// ACTUALIZAZIÓN DEL CARRITO - AGREGA, ELIMINA INDIVIDUALMENTE Y VACÍA CARRITO
 const actualizarCarrito = () => {
-    localStorage.setItem('carrito',JSON.stringify(carrito))
+    localStorage.setItem('carrito', JSON.stringify(carrito))
+
     contCarrito.innerHTML = "";
-    //RENDERIZADO DE CADA ITEM EN LISTA
-    carrito.forEach((prod, i) => {
-        const li = document.createElement("li");
-        li.className = "d-flex flex-row align-items-center justify-content-between";
-        li.innerHTML = `
+
+    if (carrito.length == 0) {
+        //SI EL CARRITO ESTÁ VACÍO APARECE ESTE MENSAJE
+        contCarrito.innerHTML = `<span class="caps nomProd">Carrito vacío</span>`;
+    } else {
+        //RENDERIZADO DE CADA ITEM EN LISTA
+        carrito.forEach((prod, i) => {
+            const li = document.createElement("li");
+            li.className = "d-flex flex-row align-items-center justify-content-between";
+            li.innerHTML = `
     <span class="caps nomProd">${prod.nombre}</span>
     <span class="fst-italic">${prod.cantidad} u.</span>
     <span>Precio por unidad:</span><strong>$${prod.precio}</strong>
     <button id="carr${i}" class="btn text-danger"><i class="bi bi-x-circle"></i></button>
     `;
-        //APPEND EN CARRITO
-        contCarrito.append(li);
+            //APPEND EN CARRITO
+            contCarrito.append(li);
 
-        //BOTON ELIMINAR DEL CARRITO
-        const botonEliminar = document.querySelector(`#carr${i}`);
-        botonEliminar.addEventListener("click", () => {
-            //LLAMADA A ELIMINAR DEL CARRITO
-            eliminarDelCarrito(i);
+            //BOTON ELIMINAR DEL CARRITO
+            const botonEliminar = document.querySelector(`#carr${i}`);
+            botonEliminar.addEventListener("click", () => {
+                //LLAMADA A ELIMINAR DEL CARRITO
+                eliminarDelCarrito(i);
+            });
         });
-    });
+    }
     cantidadEnCarrito.innerText = carrito.length;
 
     //EL PRECIO TOTAL ES EL PRECIO DEL PRODUCTO POR LA VARIABLE CANTIDAD DEL OBJ EN CARRITO
@@ -211,10 +232,6 @@ const eliminarDelCarrito = (i) => {
     //ELIMINA EL ELEMENTO CORRESPONDIENTE AL LUGAR DEL INDICE INGRESADO
     carrito.splice(i, 1);
     actualizarCarrito();
-    if (carrito.length == 0) {
-        //SI EL CARRITO QUEDA VACIO LUEGO DE BORRAR EL ULTIMO ITEM APARECE ESTE MENSAJE
-        contCarrito.innerHTML = `<span class="caps nomProd">Carrito vacío</span>`;
-    }
 };
 
 //VACIA EL CARRITO CAMBIANDO SU LENGTH A 0
@@ -254,20 +271,23 @@ botonVaciar.addEventListener("click", () => {
 });
 
 ////////////// EVENTOS FILTRA BUSQUEDA
-qProd.forEach((e) =>
-    e.addEventListener("click", (event) => {
-        event.preventDefault();
-        if (e.className.includes("barra")) {
-            const filtrado = filtro(productos, "barra");
+qProd.forEach((opcion) =>
+    opcion.addEventListener("click", () => {
+        if (opcion.className.includes("barra")) {
+            const filtrado = filtro("barra");
+            console.log(filtrado)
             listarProductos(filtrado);
-        } else if (e.className.includes("disco")) {
-            const filtrado = filtro(productos, "disco");
+        } else if (opcion.className.includes("disco")) {
+            const filtrado = filtro("disco");
             listarProductos(filtrado);
-        } else if (e.className.includes("mancuerna")) {
-            const filtrado = filtro(productos, "mancuerna");
+        } else if (opcion.className.includes("mancuerna")) {
+            const filtrado = filtro("mancuerna");
             listarProductos(filtrado);
-        } else if (e.className.includes("accesorio")) {
-            const filtrado = filtro(productos, "colchoneta");
+        } else if (opcion.className.includes("accesorio")) {
+            const filtrado = filtro("accesorio");
+            listarProductos(filtrado);
+        } else if (opcion.className.includes("oferta")) {
+            const filtrado = filtro("oferta");
             listarProductos(filtrado);
         } else {
             //ELSE PARA LOS PRODUCTOS QUE TODAVÍA NO ESTÁN EN EL STOCK
