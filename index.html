@@ -17,9 +17,9 @@
     <!-- AOS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!-- toastify -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
     <!-- mi css -->
-    <link rel="stylesheet" href="./css/style.css"/>
+    <link rel="stylesheet" href="./css/style.css" />
     <!-- mi app -->
     <script defer src="./app.js"></script>
     <script defer src="./mp.js"></script>
@@ -91,18 +91,23 @@
                 </div>
                 <div class="modal-body">
 
-                    <ul class="contCarrito">
+                    <ul class="contCarrito container">
                         <span class="caps nomProd">Carrito vacío</span>
                     </ul>
 
                 </div>
-                <div class="modal-footer">
+                <!-- <div class="modal-footer">
                     <h5>Precio total: </h5>
                     <h5 class="total">$0</h5>
-                </div>
-                <div class="modal-footer">
-                    <button id="botonComprar" type="submit" data-bs-dismiss="modal">Comprar</button>
-                    <button type="button" class="botonVaciar">Vaciar carrito</button>
+                </div> -->
+                <div class="modal-footer flex-column align-items-end">
+                    <div class="d-flex flex-row">
+                        <h5>Precio total: </h5><h5 class="total mx-3">$0</h5>
+                    </div>
+                    <div>
+                        <button id="botonComprar" type="submit" data-bs-dismiss="modal">Comprar</button>
+                        <button type="button" class="botonVaciar">Vaciar carrito</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -121,7 +126,7 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init();
-      </script>
+    </script>
 </body>
 
 </html>

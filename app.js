@@ -107,10 +107,11 @@ const listarProductos = (arrayFiltrado) => {
         if (e.categoria.find((cat) => cat == "oferta")) {
             const divCard = document.querySelector(`#card${e.id}`)
             const etiqOferta = document.createElement('div')
-            etiqOferta.className="badge bg-dark text-white position-absolute"
-            etiqOferta.style.right="0.7rem";etiqOferta.style.top="0.7rem"
-            etiqOferta.innerText="Oferta"
-            const porcentaje = (100 - ((100/e.precio)*e.pOferta)).toFixed(2)
+            etiqOferta.className = "badge bg-dark text-white position-absolute"
+            etiqOferta.style.right = "0.7rem";
+            etiqOferta.style.top = "0.7rem"
+            etiqOferta.innerText = "Oferta"
+            const porcentaje = (100 - ((100 / e.precio) * e.pOferta)).toFixed(2)
             divCard.append(etiqOferta)
             const divPrecio = document.querySelector(`#precio${e.id}`)
             divPrecio.innerHTML = `
@@ -157,16 +158,19 @@ const actualizarCarrito = () => {
 
     if (carrito.length == 0) {
         //SI EL ARRAY CARRITO ESTÁ VACÍO APARECE ESTE MENSAJE
-        contCarrito.innerHTML = `<span class="caps nomProd">Carrito vacío</span>`;
+        contCarrito.innerHTML = `<p class="caps nomProd my-4 fs-5">Carrito vacío</p>`;
     } else {
         carrito.forEach((prod, i) => {
             const li = document.createElement("li");
-            li.className = "d-flex flex-row align-items-center justify-content-between";
+            // li.className = "d-flex flex-row align-items-center justify-content-between";
+            li.className = "row"
             li.innerHTML = `
-    <span class="caps nomProd">${prod.nombre}</span>
-    <span class="fst-italic">${prod.cantidad} u.</span>
-    <span>Precio por unidad:</span><strong>$${prod.precio}</strong>
-    <button id="carr${i}" class="btn text-danger"><i class="bi bi-x-circle"></i></button>
+    <span class="caps nomProd col-6">${prod.nombre}</span>
+    <span class="fst-italic col-2">${prod.cantidad} u.</span>
+    <div class="col">
+        <strong>$${prod.precio*prod.cantidad}</strong>
+    </div>
+    <button id="carr${i}" class="btn text-danger col-1"><i class="bi bi-x-circle"></i></button>
     `;
             contCarrito.append(li);
 
@@ -190,7 +194,7 @@ const agregarAlCarrito = (el) => {
     const cantidad = parseInt(
         sessionStorage.getItem(`'cant-${el.nombre}${el.id}'`)
     );
-    
+
     //TOAST
     Toastify({
         text: `Agregó: \n ${el.nombre} por ${cantidad} u.`,
@@ -272,7 +276,7 @@ botonVaciar.addEventListener("click", () => {
     } else {
         carrito.length = 0;
         actualizarCarrito();
-        contCarrito.innerHTML = `<span class="caps nomProd">Carrito vacío</span>`;
+        contCarrito.innerHTML = `<p class="caps nomProd my-4 fs-5">Carrito vacío</p>`;
         Toastify({
             text: `Se vació el carrito`,
             position: "left",
@@ -315,11 +319,11 @@ qProd.forEach((opcion) =>
 ////////////////////////////////////////// BOTON TO TOP
 //MUESTRA BOTON AL SCROLLEAR
 const showButton = () => {
-  if (document.documentElement.scrollTop > 50) {
-    toTopButton.style.display = "block";
-  } else {
-    toTopButton.style.display = "none";
-  }
+    if (document.documentElement.scrollTop > 50) {
+        toTopButton.style.display = "block";
+    } else {
+        toTopButton.style.display = "none";
+    }
 }
 
 const toTopButton = document.querySelector("#toTop");
