@@ -6,7 +6,9 @@
         "pOferta": 14000,
         "marca": "Quuz",
         "material": "acero",
-        "categoria":["barra"],
+        "categoria": [
+            "barra"
+        ],
         "stock": 30,
         "img": "barra.jpg"
     },
@@ -18,31 +20,38 @@
         "pOferta": 17000,
         "marca": "Quuz",
         "material": "acero",
-        "categoria":["barra"],
+        "categoria": [
+            "barra"
+        ],
         "stock": 30,
         "img": "barra.jpg"
     },
     {
         "id": 2,
-        "nombre": "disco 5 kg.",
+        "nombre": "bumper 5 kg.",
         "peso": 5,
         "precio": 2800,
         "pOferta": 2500,
         "marca": "Quuz",
         "material": "caucho",
-        "categoria":["disco","oferta"],
+        "categoria": [
+            "disco",
+            "oferta"
+        ],
         "stock": 60,
         "img": "disco.jpg"
     },
     {
         "id": 3,
-        "nombre": "disco 10 kg.",
+        "nombre": "bumper 10 kg.",
         "peso": 10,
         "precio": 5800,
         "pOferta": 5200,
         "marca": "Quuz",
         "material": "caucho",
-        "categoria":["disco"],
+        "categoria": [
+            "disco"
+        ],
         "stock": 60,
         "img": "disco.jpg"
     },
@@ -54,7 +63,10 @@
         "pOferta": 1400,
         "marca": "Quuz",
         "material": "acero",
-        "categoria":["mancuerna","oferta"],
+        "categoria": [
+            "mancuerna",
+            "oferta"
+        ],
         "stock": 30,
         "img": "mancuerna.jpg"
     },
@@ -66,7 +78,10 @@
         "pOferta": 1870,
         "marca": "Quuz",
         "material": "acero",
-        "categoria":["mancuerna","oferta"],
+        "categoria": [
+            "mancuerna",
+            "oferta"
+        ],
         "stock": 30,
         "img": "mancuerna.jpg"
     },
@@ -78,7 +93,10 @@
         "pOferta": 2700,
         "marca": "Quuz",
         "material": "acero",
-        "categoria":["mancuerna","oferta"],
+        "categoria": [
+            "mancuerna",
+            "oferta"
+        ],
         "stock": 30,
         "img": "mancuerna.jpg"
     },
@@ -90,8 +108,131 @@
         "pOferta": 1350,
         "marca": "Quuz",
         "material": "espuma alta densidad",
-        "categoria":["accesorio","oferta"],
+        "categoria": [
+            "accesorio",
+            "oferta"
+        ],
         "stock": 200,
         "img": "colchoneta.jpg"
+    },
+    {
+        "id": 8,
+        "nombre": "banda plana circular",
+        "peso": 15,
+        "precio": 700,
+        "pOferta": 450,
+        "marca": "Quuz",
+        "material": "latex",
+        "categoria":["accesorio","oferta"],
+        "stock": 30,
+        "img": "banda.jpg"
+    },
+    {
+        "id": 9,
+        "nombre": "soga speed rope",
+        "peso": 15,
+        "precio": 2100,
+        "pOferta": 1800,
+        "marca": "Quuz",
+        "material": "metal",
+        "categoria":["accesorio","oferta"],
+        "stock": 30,
+        "img": "srope.jpg"
+    },
+    {
+        "id": 10,
+        "nombre": "soga de salto",
+        "peso": 15,
+        "precio": 600,
+        "pOferta": 450,
+        "marca": "Quuz",
+        "material": "plástico",
+        "categoria":["accesorio","oferta"],
+        "stock": 30,
+        "img": "soga.jpg"
+    },
+    {
+        "id": 11,
+        "nombre": "barra EZ 1,20 mts.",
+        "peso": 20,
+        "precio": 19500,
+        "pOferta": 17500,
+        "marca": "Quuz",
+        "material": "acero",
+        "categoria": [
+            "barra"
+        ],
+        "stock": 30,
+        "img": "barraEZ.jpg"
+    },
+    {
+        "id": 12,
+        "nombre": "barra romana",
+        "peso": 20,
+        "precio": 19500,
+        "pOferta": 17500,
+        "marca": "Quuz",
+        "material": "acero",
+        "categoria": [
+            "barra"
+        ],
+        "stock": 30,
+        "img": "barraR.jpg"
+    },
+    {
+        "id": 13,
+        "nombre": "barra c/ rosca 1,2 mts.",
+        "peso": 20,
+        "precio": 6500,
+        "pOferta": 5500,
+        "marca": "Quuz",
+        "material": "acero",
+        "categoria": [
+            "barra"
+        ],
+        "stock": 30,
+        "img": "barraRosca.jpg"
+    },
+    {
+        "id": 14,
+        "nombre": "disco fundición 2,5 kg.",
+        "peso": 20,
+        "precio": 1000,
+        "pOferta": 700,
+        "marca": "Quuz",
+        "material": "acero",
+        "categoria": [
+            "disco"
+        ],
+        "stock": 30,
+        "img": "disco2-5.jpg"
+    },
+    {
+        "id": 15,
+        "nombre": "disco fundición 5 kg.",
+        "peso": 20,
+        "precio": 2000,
+        "pOferta": 1700,
+        "marca": "Quuz",
+        "material": "acero",
+        "categoria": [
+            "disco"
+        ],
+        "stock": 30,
+        "img": "disco5.jpg"
+    },
+    {
+        "id": 16,
+        "nombre": "disco fundición 10 kg.",
+        "peso": 20,
+        "precio": 4000,
+        "pOferta": 700,
+        "marca": "Quuz",
+        "material": "acero",
+        "categoria": [
+            "disco"
+        ],
+        "stock": 30,
+        "img": "disco10.jpg"
     }
 ]

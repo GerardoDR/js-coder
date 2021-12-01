@@ -77,6 +77,7 @@ const listarProductos = (arrayFiltrado) => {
         let numItems = 1;
         sessionStorage.setItem(`'cant-${e.nombre}${e.id}'`, `${numItems}`);
         creaDiv.classList.add("prodMain__elemento", "col", "mb-5");
+        creaDiv.dataset.aos = 'fade-up'
         creaDiv.innerHTML = `
             <div id="card${e.id}" class="card h-100">
                 <img class="card-img-top p-3" src="./assets/${e.img}" alt="${e.nombre}" />
@@ -118,7 +119,6 @@ const listarProductos = (arrayFiltrado) => {
                         <small class="text-success"> -${porcentaje}%</small><br/>
                         <span>$${e.pOferta}</span>`
         }
-
         const botonAgregar = document.querySelector(`#prod${e.id} a`);
         botonAgregar.addEventListener("click", () => {
 
@@ -320,6 +320,26 @@ qProd.forEach((opcion) =>
         }
     })
 );
+
+/////////////////////////////////////////////////BOTON TO TOP
+//MUESTRA BOTON AL SCROLLEAR
+const showButton = () => {
+  if (document.documentElement.scrollTop > 50) {
+    toTopButton.style.display = "block";
+  } else {
+    toTopButton.style.display = "none";
+  }
+}
+
+const toTopButton = document.querySelector("#toTop");
+console.log(toTopButton)
+
+window.onscroll = () => showButton();
+
+//VUELVE AL COMIENZO DE LA PÁGINA
+toTopButton.addEventListener('click', () => document.documentElement.scrollTop = 0)
+
+//////////////////////////////////////////////////////////////
 
 //LLAMADO INICIAL DE CARGAR Y LISTAR PRODUCTOS
 cargarProductos();

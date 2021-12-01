@@ -1,6 +1,7 @@
-.cantidadEnCarrito{
+.cantidadEnCarrito {
     padding: .6em .75em;
 }
+
 .indHero {
     display: flex;
     justify-content: center;
@@ -9,7 +10,7 @@
 
 }
 
-.navbar-brand{
+.navbar-brand {
     margin-right: 0;
 }
 
@@ -22,19 +23,23 @@
     text-transform: capitalize;
 }
 
-.botonesQ{
+.botonesQ {
     // max-width: 40px;
     margin: 0 .5em;
-    .cantidad{
+
+    .cantidad {
         padding: .1em .5em;
-        &:active:focus{
+
+        &:active:focus {
             box-shadow: 0 0 0 0.1rem rgba(33, 37, 41, 0.5);
         }
-        &:focus{
+
+        &:focus {
             box-shadow: 0 0 0 0.05rem rgba(33, 37, 41, 0.5);
         }
     }
-    span{
+
+    span {
         padding: .65em;
         margin: .3em 0;
     }
@@ -55,9 +60,11 @@
     .modal-content {
         background-color: $layer2;
         color: #fff;
-        ul{
+
+        ul {
             margin: 0;
         }
+
         .nomProd {
             font-size: 1em;
         }
@@ -86,5 +93,24 @@
                 transition: border-color 0.2s;
             }
         }
+    }
+}
+
+#toTop {
+    padding: .3em .5em;
+    background-color: $layer2;
+    font-size: 1.5em;
+    border-radius: .3em;
+    text-align: center;
+    border: 2px solid $primario;
+    color: #fff;
+    display: none;
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+    z-index: 99;
+    cursor: pointer;
+    &:hover {
+        background-color: $layer3;
     }
 }
