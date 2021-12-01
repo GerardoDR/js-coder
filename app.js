@@ -77,16 +77,11 @@ const listarProductos = (arrayFiltrado) => {
         let numItems = 1;
         sessionStorage.setItem(`'cant-${e.nombre}${e.id}'`, `${numItems}`);
         creaDiv.classList.add("prodMain__elemento", "col", "mb-5");
-        let oferta =""
-        if(e.categoria.find( (cat) => cat == "oferta")){
-            oferta = `<div class="badge bg-dark text-white position-absolute" style="top: 0.7rem; right: 0.7rem">Oferta</div>`
-        }
-
-        creaDiv.innerHTML = `<div class="card h-100">
-                ${oferta}
+        creaDiv.innerHTML = `
+            <div id="card${e.id}" class="card h-100">
                 <img class="card-img-top p-3" src="./assets/${e.img}" alt="${e.nombre}" />
                 <div class="card-body p-4">
-                    <div class="text-center">
+                    <div id="precio${e.id}" class="text-center">
                         <h5 class="fw-bolder caps">${e.nombre}</h5>
                         <span>$${e.precio}</span>
                     </div>
@@ -105,14 +100,30 @@ const listarProductos = (arrayFiltrado) => {
                 </div>
             </div>
         `;
+
         //APPEND
         prodMain.append(creaDiv);
+        if (e.categoria.find((cat) => cat == "oferta")) {
+            const divCard = document.querySelector(`#card${e.id}`)
+            const etiqOferta = document.createElement('div')
+            etiqOferta.className="badge bg-dark text-white position-absolute"
+            etiqOferta.style.right="0.7rem";etiqOferta.style.top="0.7rem"
+            etiqOferta.innerText="Oferta"
+            const porcentaje = (100 - ((100/e.precio)*e.pOferta)).toFixed(2)
+            divCard.append(etiqOferta)
+            const divPrecio = document.querySelector(`#precio${e.id}`)
+            divPrecio.innerHTML = `
+                        <h5 class="fw-bolder caps">${e.nombre}</h5>
+                        <small class="text-muted text-decoration-line-through">$${e.precio}</small>
+                        <small class="text-success"> -${porcentaje}%</small><br/>
+                        <span>$${e.pOferta}</span>`
+        }
 
         const botonAgregar = document.querySelector(`#prod${e.id} a`);
-        //EVENTO AGREGAR AL CARRITO POR CADA PRODUCTO
         botonAgregar.addEventListener("click", () => {
-            //LLAMADA A FUNCION DE AGREGAR AL CARRITO
+
             agregarAlCarrito(e);
+
             //RESETEA CONTADOR AL AGREGAR A CARRITO
             const contador = document.querySelector(`#prod${e.id} span`);
             contador.innerText = 1;
@@ -205,36 +216,46 @@ const agregarAlCarrito = (el) => {
             yaEnCarrito.cantidad++;
         }
     } else {
-        //O CREA LA ENTRADA EN EL CARRITO, ESTO ES TEMA DESTRUCTURING DEL OBJ
+        //EVALUA SI EL PRODUCTO ESTÁ EN OFERTA Y LO ENVIA A CARRITO CON PRECIO DE OFERTA O REGULAR
         let {
             id,
             nombre,
             precio,
+            pOferta,
             img
         } = productos.find((item) => item.id === el.id);
-        //EL OBJETO ES UTILIZADO PARA HACER UNA NUEVA ENTRADA EN EL ARRAY DE CARRITO
-        carrito.push({
-            id: id,
-            nombre: nombre,
-            precio: precio,
-            img: img,
-            //SE TOMA LA CANTIDAD GUARDADA EN CONTADOR COMO VALOR INICIAL DE CANTIDAD EN CARRITO
-            cantidad: cantidad,
-        });
+
+        if (el.categoria.find((cat) => cat == "oferta")) {
+            carrito.push({
+                id: id,
+                nombre: nombre,
+                precio: pOferta,
+                img: img,
+                //SE TOMA LA CANTIDAD GUARDADA EN CONTADOR COMO VALOR INICIAL DE CANTIDAD EN CARRITO
+                cantidad: cantidad,
+            });
+        } else {
+            carrito.push({
+                id: id,
+                nombre: nombre,
+                precio: precio,
+                img: img,
+                cantidad: cantidad,
+            });
+        };
     }
-    //LLAMADO A LA FUNCION PARA RENDERIZAR CARRITO
+
     actualizarCarrito();
+
     //RESET DE LA VARIABLE CANTIDAD EN SESSION STORAGE
     sessionStorage.setItem(`'cant-${el.nombre}${el.id}'`, 1);
 };
 //
 const eliminarDelCarrito = (i) => {
-    //ELIMINA EL ELEMENTO CORRESPONDIENTE AL LUGAR DEL INDICE INGRESADO
     carrito.splice(i, 1);
     actualizarCarrito();
 };
 
-//VACIA EL CARRITO CAMBIANDO SU LENGTH A 0
 botonVaciar.addEventListener("click", () => {
     if (carrito.length == 0) {
         Toastify({
@@ -290,7 +311,6 @@ qProd.forEach((opcion) =>
             const filtrado = filtro("oferta");
             listarProductos(filtrado);
         } else {
-            //ELSE PARA LOS PRODUCTOS QUE TODAVÍA NO ESTÁN EN EL STOCK
             prodMain.innerHTML = "";
             const div = document.createElement("div");
             div.classList.add("prodMain__elemento", "col", "mb-2");
