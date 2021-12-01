@@ -46,7 +46,7 @@ botonComprar.addEventListener('click', () => {
                 padding: "1em",
                 background: "#212121",
                 border: "3px solid #f44336",
-                'border-radius': ".6em",
+                'border-radius': ".4em",
                 color: "#fff"
             },
         }).showToast();
@@ -60,7 +60,7 @@ botonComprar.addEventListener('click', () => {
                 padding: "1em",
                 background: "#212121",
                 border: "3px solid #f44336",
-                'border-radius': ".6em",
+                'border-radius': ".4em",
                 color: "#fff"
             },
         }).showToast();

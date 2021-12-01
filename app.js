@@ -29,9 +29,9 @@ const cantidadEnCarrito = document.querySelector(".cantidadEnCarrito");
 const h5Total = document.querySelector(".total");
 const botonVaciar = document.querySelector(".botonVaciar");
 
-///////////////////////////////// FUNCIONES
+/////////////////////////////////// FUNCIONES
 
-////////////// FUNCIÓN FILTRO (nav)
+/////// FUNCIÓN FILTRO (nav)
 
 const filtro = (queryCat) => {
     const accFilt = productos.filter((el) => {
@@ -44,7 +44,7 @@ const filtro = (queryCat) => {
     return accFilt
 };
 
-////////////// CONTADORES EN TARJETAS
+/////////////////////////////////// CONTADORES EN TARJETAS
 
 //RESTA
 const restQ = (e) => {
@@ -68,7 +68,7 @@ const sumQ = (e) => {
     sessionStorage.setItem(`'cant-${e.nombre}${e.id}'`, `${contador.innerText}`);
 };
 
-////////////// RENDERIZADO DEL MAIN
+/////////////////////////////////// RENDERIZADO DEL MAIN
 const listarProductos = (arrayFiltrado) => {
     prodMain.innerHTML = "";
     arrayFiltrado.forEach((e) => {
@@ -101,9 +101,9 @@ const listarProductos = (arrayFiltrado) => {
                 </div>
             </div>
         `;
-
-        //APPEND
         prodMain.append(creaDiv);
+
+        //AGREGADOS DE ESTILO Y MODIFICACION DE PRECIO EN CASO DE PRODUCTO EN OFERTA
         if (e.categoria.find((cat) => cat == "oferta")) {
             const divCard = document.querySelector(`#card${e.id}`)
             const etiqOferta = document.createElement('div')
@@ -139,9 +139,9 @@ const listarProductos = (arrayFiltrado) => {
 };
 
 
-////////////// CARRITO
+////////////////////////////// CARRITO
 
-////// TOTAL CARRITO
+//// TOTAL CARRITO
 
 const funcTotal = () => {
     const pTotal = carrito.reduce((acc, carr) => acc + carr.precio * carr.cantidad, 0);
@@ -149,17 +149,16 @@ const funcTotal = () => {
     return pTotal;
 };
 
-////// ACTUALIZAZIÓN DEL CARRITO - AGREGA, ELIMINA INDIVIDUALMENTE Y VACÍA CARRITO
+//// ACTUALIZAZIÓN DEL CARRITO - AGREGA, ELIMINA INDIVIDUALMENTE Y VACÍA CARRITO
 const actualizarCarrito = () => {
     localStorage.setItem('carrito', JSON.stringify(carrito))
 
     contCarrito.innerHTML = "";
 
     if (carrito.length == 0) {
-        //SI EL CARRITO ESTÁ VACÍO APARECE ESTE MENSAJE
+        //SI EL ARRAY CARRITO ESTÁ VACÍO APARECE ESTE MENSAJE
         contCarrito.innerHTML = `<span class="caps nomProd">Carrito vacío</span>`;
     } else {
-        //RENDERIZADO DE CADA ITEM EN LISTA
         carrito.forEach((prod, i) => {
             const li = document.createElement("li");
             li.className = "d-flex flex-row align-items-center justify-content-between";
@@ -169,17 +168,16 @@ const actualizarCarrito = () => {
     <span>Precio por unidad:</span><strong>$${prod.precio}</strong>
     <button id="carr${i}" class="btn text-danger"><i class="bi bi-x-circle"></i></button>
     `;
-            //APPEND EN CARRITO
             contCarrito.append(li);
 
             //BOTON ELIMINAR DEL CARRITO
             const botonEliminar = document.querySelector(`#carr${i}`);
             botonEliminar.addEventListener("click", () => {
-                //LLAMADA A ELIMINAR DEL CARRITO
                 eliminarDelCarrito(i);
             });
         });
     }
+    //FIJA CANTIDAD ITEMS DIFERENTES EN CARRITO EN EL CONTADOR QUE SE MUESTRA EN BOTON CARRITO
     cantidadEnCarrito.innerText = carrito.length;
 
     //EL PRECIO TOTAL ES EL PRECIO DEL PRODUCTO POR LA VARIABLE CANTIDAD DEL OBJ EN CARRITO
@@ -192,18 +190,18 @@ const agregarAlCarrito = (el) => {
     const cantidad = parseInt(
         sessionStorage.getItem(`'cant-${el.nombre}${el.id}'`)
     );
-
+    
     //TOAST
     Toastify({
         text: `Agregó: \n ${el.nombre} por ${cantidad} u.`,
-        duration: 3000,
+        duration: 900,
         stopOnFocus: false,
         style: {
             "text-transform": "capitalize",
             padding: "1em",
             background: "#212121",
             border: "3px solid #f44336",
-            "border-radius": ".6em",
+            "border-radius": ".4em",
             color: "#fff",
         },
     }).showToast();
@@ -267,7 +265,7 @@ botonVaciar.addEventListener("click", () => {
                 padding: "1em",
                 background: "#212121",
                 border: "3px solid #f44336",
-                "border-radius": ".6em",
+                "border-radius": ".4em",
                 color: "#fff",
             },
         }).showToast();
@@ -284,7 +282,7 @@ botonVaciar.addEventListener("click", () => {
                 padding: "1em",
                 background: "#212121",
                 border: "3px solid #f44336",
-                "border-radius": ".6em",
+                "border-radius": ".4em",
                 color: "#fff",
             },
         }).showToast();
@@ -292,11 +290,11 @@ botonVaciar.addEventListener("click", () => {
 });
 
 ////////////// EVENTOS FILTRA BUSQUEDA
+
 qProd.forEach((opcion) =>
     opcion.addEventListener("click", () => {
         if (opcion.className.includes("barra")) {
             const filtrado = filtro("barra");
-            console.log(filtrado)
             listarProductos(filtrado);
         } else if (opcion.className.includes("disco")) {
             const filtrado = filtro("disco");
@@ -310,18 +308,11 @@ qProd.forEach((opcion) =>
         } else if (opcion.className.includes("oferta")) {
             const filtrado = filtro("oferta");
             listarProductos(filtrado);
-        } else {
-            prodMain.innerHTML = "";
-            const div = document.createElement("div");
-            div.classList.add("prodMain__elemento", "col", "mb-2");
-            div.id = "proximamente";
-            div.innerHTML = "<span>Proximamente</span>";
-            prodMain.append(div);
         }
     })
 );
 
-/////////////////////////////////////////////////BOTON TO TOP
+////////////////////////////////////////// BOTON TO TOP
 //MUESTRA BOTON AL SCROLLEAR
 const showButton = () => {
   if (document.documentElement.scrollTop > 50) {
@@ -332,12 +323,12 @@ const showButton = () => {
 }
 
 const toTopButton = document.querySelector("#toTop");
-console.log(toTopButton)
 
 window.onscroll = () => showButton();
 
 //VUELVE AL COMIENZO DE LA PÁGINA
 toTopButton.addEventListener('click', () => document.documentElement.scrollTop = 0)
+
 
 //////////////////////////////////////////////////////////////
 
