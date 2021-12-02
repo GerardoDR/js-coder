@@ -87,16 +87,15 @@ const listarProductos = (arrayFiltrado) => {
                         <span>$${e.precio}</span>
                     </div>
                 </div>
-                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div id="prod${e.id}" class="text-center d-flex">
-                        <a class="btn btn-outline-dark m-auto">
-                        <i class="bi-cart-fill me-1">
-                        </i>Agregar al carrito</a>
-                        <div class="d-flex flex-column botonesQ">
-                            <button class="cantidad mas btn btn-outline-dark rounded-pill">+</button>
-                            <span class="badge bg-dark text-white rounded-pill">${numItems}</span>
-                            <button class="cantidad menos btn btn-outline-dark rounded-pill">-</button>
-                        </div>
+                <div id="prod${e.id}" class="card-footer p-4 pt-0 border-top-0 bg-transparent text-center d-flex">
+                    <a class="btn btn-outline-dark w-100">
+                    <i class="bi-cart-fill me-1">
+                    </i><p class="m-auto">Agregar al <br>
+                    carrito</p></a>
+                    <div class="d-flex flex-column botonesQ justify-content-evenly">
+                        <button class="cantidad mas btn btn-outline-dark rounded-pill">+</button>
+                        <span class="badge bg-dark text-white rounded-pill">${numItems}</span>
+                        <button class="cantidad menos btn btn-outline-dark rounded-pill">-</button>
                     </div>
                 </div>
             </div>
@@ -158,19 +157,16 @@ const actualizarCarrito = () => {
 
     if (carrito.length == 0) {
         //SI EL ARRAY CARRITO ESTÁ VACÍO APARECE ESTE MENSAJE
-        contCarrito.innerHTML = `<p class="caps nomProd my-4 fs-5">Carrito vacío</p>`;
+        contCarrito.innerHTML = `<span class="caps nomProd">Carrito vacío</span>`;
     } else {
         carrito.forEach((prod, i) => {
             const li = document.createElement("li");
-            // li.className = "d-flex flex-row align-items-center justify-content-between";
-            li.className = "row"
+            li.className = "d-flex flex-row align-items-center justify-content-between";
             li.innerHTML = `
-    <span class="caps nomProd col-6">${prod.nombre}</span>
-    <span class="fst-italic col-2">${prod.cantidad} u.</span>
-    <div class="col">
-        <strong>$${prod.precio*prod.cantidad}</strong>
-    </div>
-    <button id="carr${i}" class="btn text-danger col-1"><i class="bi bi-x-circle"></i></button>
+    <span class="caps nomProd">${prod.nombre}</span>
+    <span class="fst-italic">${prod.cantidad} u.</span>
+    <span>Precio por unidad:</span><strong>$${prod.precio}</strong>
+    <button id="carr${i}" class="btn text-danger"><i class="bi bi-x-circle"></i></button>
     `;
             contCarrito.append(li);
 
@@ -276,7 +272,7 @@ botonVaciar.addEventListener("click", () => {
     } else {
         carrito.length = 0;
         actualizarCarrito();
-        contCarrito.innerHTML = `<p class="caps nomProd my-4 fs-5">Carrito vacío</p>`;
+        contCarrito.innerHTML = `<span class="caps nomProd">Carrito vacío</span>`;
         Toastify({
             text: `Se vació el carrito`,
             position: "left",
