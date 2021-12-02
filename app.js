@@ -162,13 +162,11 @@ const actualizarCarrito = () => {
         carrito.forEach((prod, i) => {
             const li = document.createElement("li");
             // li.className = "d-flex flex-row align-items-center justify-content-between";
-            li.className = "row"
+            li.className = "row align-items-center"
             li.innerHTML = `
-    <span class="caps nomProd col-6">${prod.nombre}</span>
-    <span class="fst-italic col-2">${prod.cantidad} u.</span>
-    <div class="col">
-        <strong>$${prod.precio*prod.cantidad}</strong>
-    </div>
+    <span class="caps nomProd col-5 col-sm-6">${prod.nombre}</span>
+    <span class="fst-italic col col-sm-2">${prod.cantidad} u.</span>
+    <strong class="col-3 col-sm">$${prod.precio*prod.cantidad}</strong>
     <button id="carr${i}" class="btn text-danger col-1"><i class="bi bi-x-circle"></i></button>
     `;
             contCarrito.append(li);
