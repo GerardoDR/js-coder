@@ -87,16 +87,15 @@ const listarProductos = (arrayFiltrado) => {
                         <span>$${e.precio}</span>
                     </div>
                 </div>
-                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div id="prod${e.id}" class="text-center d-flex">
-                        <a class="btn btn-outline-dark m-auto">
-                        <i class="bi-cart-fill me-1">
-                        </i>Agregar al carrito</a>
-                        <div class="d-flex flex-column botonesQ">
-                            <button class="cantidad mas btn btn-outline-dark rounded-pill">+</button>
-                            <span class="badge bg-dark text-white rounded-pill">${numItems}</span>
-                            <button class="cantidad menos btn btn-outline-dark rounded-pill">-</button>
-                        </div>
+                <div id="prod${e.id}" class="card-footer p-4 pt-0 border-top-0 bg-transparent text-center d-flex">
+                    <a class="btn btn-outline-dark w-100">
+                    <i class="bi-cart-fill me-1">
+                    </i><p class="m-auto">Agregar al <br>
+                    carrito</p></a>
+                    <div class="d-flex flex-column botonesQ justify-content-evenly">
+                        <button class="cantidad mas btn btn-outline-dark rounded-pill">+</button>
+                        <span class="badge bg-dark text-white rounded-pill">${numItems}</span>
+                        <button class="cantidad menos btn btn-outline-dark rounded-pill">-</button>
                     </div>
                 </div>
             </div>
