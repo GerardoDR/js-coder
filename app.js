@@ -211,9 +211,7 @@ const agregarAlCarrito = (el) => {
     let yaEnCarrito = carrito.find((item) => item.id === el.id);
     //SUMA POR CADA UNIDAD QUE SE AGREGUE, CUANDO EL ITEM YA ESTA EN EL CARRITO
     if (yaEnCarrito) {
-        for (i = 0; i < cantidad; i++) {
-            yaEnCarrito.cantidad++;
-        }
+            yaEnCarrito.cantidad += cantidad;
     } else {
         //EVALUA SI EL PRODUCTO ESTÁ EN OFERTA Y LO ENVIA A CARRITO CON PRECIO DE OFERTA O REGULAR
         let {
